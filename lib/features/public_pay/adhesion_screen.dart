@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../app/theme/ak_theme.dart';
 import '../../app/theme/ak_tokens.dart';
 import '../../core/format.dart';
 import '../../core/phone.dart';
@@ -69,13 +68,16 @@ class _AdhesionFormState extends ConsumerState<_AdhesionForm> {
     super.dispose();
   }
 
-  int? get _amount => _montant == 'autre' ? parseOtherAmount(_other.text) : int.tryParse(_montant);
+  int? get _amount => _montant == 'autre'
+      ? parseOtherAmount(_other.text)
+      : int.tryParse(_montant);
 
   void _submit() {
     final l = AppLocalizations.of(context);
     final errors = <String, String>{};
     if (_prenoms.text.trim().length < 2) {
-      errors['prenoms'] = _prenoms.text.trim().isEmpty ? l.errRequired : l.errTooShort;
+      errors['prenoms'] =
+          _prenoms.text.trim().isEmpty ? l.errRequired : l.errTooShort;
     }
     if (_nom.text.trim().length < 2) {
       errors['nom'] = _nom.text.trim().isEmpty ? l.errRequired : l.errTooShort;
@@ -83,7 +85,8 @@ class _AdhesionFormState extends ConsumerState<_AdhesionForm> {
     final phone = validatePhone(_country, _tel.text);
     if (!phone.isOk) errors['tel'] = phoneProblemMessage(l, phone.problem!);
     if (_region.text.trim().length < 2) {
-      errors['region'] = _region.text.trim().isEmpty ? l.errRequired : l.errTooShort;
+      errors['region'] =
+          _region.text.trim().isEmpty ? l.errRequired : l.errTooShort;
     }
     if (_montant == 'autre') {
       final n = parseOtherAmount(_other.text);
@@ -106,7 +109,8 @@ class _AdhesionFormState extends ConsumerState<_AdhesionForm> {
             tel: phone.e164!,
             paysRegion: _region.text,
             montant: _montant,
-            montantAutre: _montant == 'autre' ? otherAmountDigits(_other.text) : '',
+            montantAutre:
+                _montant == 'autre' ? otherAmountDigits(_other.text) : '',
           ),
         );
   }
@@ -148,66 +152,78 @@ class _AdhesionFormState extends ConsumerState<_AdhesionForm> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(l.joinIntro, style: AkText.body),
-                const SizedBox(height: AkSpace.space5),
-                AkHeading(title: l.joinIdentityTitle, section: true),
-                const SizedBox(height: AkSpace.space3),
-                AkTextField(
-                  key: _keys['prenoms'],
-                  fieldKey: const Key('join-prenoms'),
-                  label: l.fieldFirstNames,
-                  controller: _prenoms,
-                  textCapitalization: TextCapitalization.words,
-                  textDirection: Directionality.of(context),
-                  textInputAction: TextInputAction.next,
-                  errorText: _errors['prenoms'],
-                  maxLength: 120,
+                AkBanner(
+                  tone: AkTone.info,
+                  icon: Icons.group_outlined,
+                  text: l.joinIntro,
                 ),
-                const SizedBox(height: AkSpace.space3),
-                AkTextField(
-                  key: _keys['nom'],
-                  fieldKey: const Key('join-nom'),
-                  label: l.fieldLastName,
-                  controller: _nom,
-                  textCapitalization: TextCapitalization.words,
-                  textDirection: Directionality.of(context),
-                  textInputAction: TextInputAction.next,
-                  errorText: _errors['nom'],
-                  maxLength: 80,
+                const SizedBox(height: AkSpace.space4),
+                PublicPaySection(
+                  title: l.joinIdentityTitle,
+                  icon: Icons.badge_outlined,
+                  children: [
+                    AkTextField(
+                      key: _keys['prenoms'],
+                      fieldKey: const Key('join-prenoms'),
+                      label: l.fieldFirstNames,
+                      controller: _prenoms,
+                      textCapitalization: TextCapitalization.words,
+                      textDirection: Directionality.of(context),
+                      textInputAction: TextInputAction.next,
+                      errorText: _errors['prenoms'],
+                      maxLength: 120,
+                    ),
+                    const SizedBox(height: AkSpace.space3),
+                    AkTextField(
+                      key: _keys['nom'],
+                      fieldKey: const Key('join-nom'),
+                      label: l.fieldLastName,
+                      controller: _nom,
+                      textCapitalization: TextCapitalization.words,
+                      textDirection: Directionality.of(context),
+                      textInputAction: TextInputAction.next,
+                      errorText: _errors['nom'],
+                      maxLength: 80,
+                    ),
+                    const SizedBox(height: AkSpace.space3),
+                    AkPhoneField(
+                      key: _keys['tel'],
+                      fieldKey: const Key('join-tel'),
+                      label: l.fieldPhoneWhatsapp,
+                      controller: _tel,
+                      country: _country,
+                      onCountryChanged: (c) => setState(() => _country = c),
+                      errorText: _errors['tel'],
+                    ),
+                    const SizedBox(height: AkSpace.space3),
+                    AkTextField(
+                      key: _keys['region'],
+                      fieldKey: const Key('join-region'),
+                      label: l.fieldCountryRegion,
+                      hint: l.fieldCountryRegionHint,
+                      controller: _region,
+                      textDirection: Directionality.of(context),
+                      errorText: _errors['region'],
+                      maxLength: 120,
+                    ),
+                  ],
                 ),
-                const SizedBox(height: AkSpace.space3),
-                AkPhoneField(
-                  key: _keys['tel'],
-                  fieldKey: const Key('join-tel'),
-                  label: l.fieldPhoneWhatsapp,
-                  controller: _tel,
-                  country: _country,
-                  onCountryChanged: (c) => setState(() => _country = c),
-                  errorText: _errors['tel'],
-                ),
-                const SizedBox(height: AkSpace.space3),
-                AkTextField(
-                  key: _keys['region'],
-                  fieldKey: const Key('join-region'),
-                  label: l.fieldCountryRegion,
-                  hint: l.fieldCountryRegionHint,
-                  controller: _region,
-                  textDirection: Directionality.of(context),
-                  errorText: _errors['region'],
-                  maxLength: 120,
-                ),
-                const SizedBox(height: AkSpace.space6),
-                AkHeading(title: l.joinAmountTitle, section: true),
-                Text(l.joinAmountSubtitle, style: AkText.bodySm),
-                const SizedBox(height: AkSpace.space3),
-                AmountChoice(
-                  key: _keys['other'],
-                  values: adhesionAmounts,
-                  perMonth: true,
-                  selected: _montant,
-                  onSelected: (v) => setState(() => _montant = v),
-                  otherController: _other,
-                  errorText: _errors['other'],
+                const SizedBox(height: AkSpace.space4),
+                PublicPaySection(
+                  title: l.joinAmountTitle,
+                  subtitle: l.joinAmountSubtitle,
+                  icon: Icons.payments_outlined,
+                  children: [
+                    AmountChoice(
+                      key: _keys['other'],
+                      values: adhesionAmounts,
+                      perMonth: true,
+                      selected: _montant,
+                      onSelected: (v) => setState(() => _montant = v),
+                      otherController: _other,
+                      errorText: _errors['other'],
+                    ),
+                  ],
                 ),
                 const SizedBox(height: AkSpace.space5),
                 AkBanner(

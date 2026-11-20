@@ -1,13 +1,16 @@
+import 'package:ahloulkhidmah_mobile/features/barkelu/barkelu_screen.dart';
 import 'package:ahloulkhidmah_mobile/app/router/app_router.dart';
 import 'package:ahloulkhidmah_mobile/shared/widgets/official_page_button.dart';
-import 'package:flutter/material.dart' show BottomSheet, Navigator;
+import 'package:flutter/material.dart' show BottomSheet, Navigator, Scrollable;
 import 'package:flutter_test/flutter_test.dart';
 
 import '../support/fake_adapter.dart';
 import '../support/pump_app.dart';
 
 void main() {
-  testWidgets('médiathèque, boutique et assistance remettent uniquement des liens officiels', (tester) async {
+  testWidgets(
+      'médiathèque, boutique et assistance remettent uniquement des liens officiels',
+      (tester) async {
     final opened = <Uri>[];
     await pumpApp(
       tester,
@@ -27,10 +30,26 @@ void main() {
       },
     );
 
+    final media = find.text('Médiathèque');
+    await tester.scrollUntilVisible(media, 140);
+    await tester.tap(media);
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Voir la médiathèque'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Barkelu'));
+    Navigator.of(tester.element(find.text('Voir la médiathèque'))).pop();
     await tester.pumpAndSettle();
+    await tester.tap(findTab('Barkelu'));
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
+      find.text('Sac de démonstration'),
+      140,
+      scrollable: find
+          .descendant(
+            of: find.byType(BarkeluScreen),
+            matching: find.byType(Scrollable),
+          )
+          .first,
+    );
     await tester.tap(find.text('Sac de démonstration'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Ouvrir la boutique').hitTestable());
@@ -40,6 +59,7 @@ void main() {
     await tester.tap(find.text('Accueil'));
     await tester.pumpAndSettle();
 
+    await tester.scrollUntilVisible(find.text('Se connecter'), 140);
     await tester.tap(find.text('Se connecter'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Code PIN oublié ?'));
@@ -54,7 +74,8 @@ void main() {
     ]);
   });
 
-  testWidgets('routes membres absentes : accès web pour la carte, l’historique et les cotisations',
+  testWidgets(
+      'routes membres absentes : accès web pour la carte, l’historique et les cotisations',
       (tester) async {
     final opened = <Uri>[];
     final app = await pumpApp(
@@ -68,15 +89,19 @@ void main() {
       ],
       routes: {
         'GET /api/mobile/v1/config': (_) => FakeReply(200, configJson()),
-        'GET /api/mobile/v1/me': (_) => FakeReply(200, {'member': memberJson()}),
-        'GET /api/mobile/v1/me/card': (_) => const FakeReply(404, '<html>Not found</html>'),
-        'GET /api/mobile/v1/payments/due': (_) => const FakeReply(404, '<html>Not found</html>'),
+        'GET /api/mobile/v1/me': (_) =>
+            FakeReply(200, {'member': memberJson()}),
+        'GET /api/mobile/v1/me/card': (_) =>
+            const FakeReply(404, '<html>Not found</html>'),
+        'GET /api/mobile/v1/payments/due': (_) =>
+            const FakeReply(404, '<html>Not found</html>'),
       },
     );
     final router = app.container.read(routerProvider);
     await tester.tap(find.text('Ma carte membre'));
     await tester.pumpAndSettle();
-    expect(find.textContaining('La carte n’est pas disponible'), findsOneWidget);
+    expect(
+        find.textContaining('La carte n’est pas disponible'), findsOneWidget);
     await tester.tap(find.text('Ouvrir mon espace sur le site'));
     await tester.pumpAndSettle();
 

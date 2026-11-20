@@ -8,9 +8,11 @@ import '../../core/animations/ak_motion.dart';
 import '../../core/config/remote_config.dart';
 import '../../core/providers.dart';
 import '../../core/security/web_allowlist.dart';
+import '../../core/theme/ak_immersive.dart';
 import '../../shared/widgets/ak_widgets.dart';
 import '../account/account_screen.dart';
 import '../barkelu/barkelu_screen.dart';
+import '../card/card_screen.dart';
 import '../cotisations/cotisations_screen.dart';
 import '../home/home_screen.dart';
 import '../system/system_screens.dart';
@@ -20,6 +22,7 @@ import '../system/system_screens.dart';
 /// annoncer des rubriques plus récentes sans casser une ancienne version.
 final Map<String, Widget Function()> nativeScreens = {
   'home': () => const HomeScreen(),
+  'card': () => const CardScreen(),
   'cotisations': () => const CotisationsScreen(),
   'barkelu': () => const BarkeluScreen(),
   'account': () => const AccountScreen(),
@@ -27,6 +30,7 @@ final Map<String, Widget Function()> nativeScreens = {
 
 IconData _iconFor(String? name) => switch (name) {
       'home' => Icons.home_outlined,
+      'card' => Icons.badge_outlined,
       'wallet' => Icons.account_balance_wallet_outlined,
       'shop' => Icons.shopping_bag_outlined,
       'person' => Icons.person_outline,
@@ -35,6 +39,7 @@ IconData _iconFor(String? name) => switch (name) {
 
 IconData _selectedIconFor(String? name) => switch (name) {
       'home' => Icons.home,
+      'card' => Icons.badge,
       'wallet' => Icons.account_balance_wallet,
       'shop' => Icons.shopping_bag,
       'person' => Icons.person,
@@ -69,9 +74,9 @@ class TabShell extends ConsumerWidget {
               destinations: [
                 for (final t in tabs)
                   NavigationDestination(
-                    icon: Icon(_iconFor(t.icon), color: context.ak.inkSoft),
-                    selectedIcon: Icon(_selectedIconFor(t.icon),
-                        color: context.ak.primary),
+                    icon: Icon(_iconFor(t.icon), color: AKColors.ivory),
+                    selectedIcon:
+                        Icon(_selectedIconFor(t.icon), color: AKColors.deep),
                     label: t.label.resolve(lang),
                   ),
               ],

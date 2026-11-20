@@ -6,13 +6,13 @@ import 'package:go_router/go_router.dart';
 import '../../app/theme/ak_theme.dart';
 import '../../app/theme/ak_tokens.dart';
 import '../../core/animations/ak_motion.dart';
-import '../../core/assets/ak_assets.dart';
 import '../../core/auth/auth_repository.dart';
 import '../../core/errors/error_messages.dart';
 import '../../core/providers.dart';
 import '../../l10n/app_localizations.dart';
 import '../../shared/widgets/ak_widgets.dart';
 import '../../shared/widgets/official_page_button.dart';
+import 'access_scaffold.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -117,133 +117,100 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: context.canPop() ? const BackButton() : null,
-      ),
-      body: SafeArea(
-        child: Align(
-          alignment: Alignment.topCenter,
-          child: SingleChildScrollView(
-            padding: akPagePadding,
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 480),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const Align(
-                    alignment: AlignmentDirectional.centerStart,
-                    child: Image(
-                        image: AssetImage(AkAssets.logo),
-                        width: 56,
-                        height: 56,
-                        excludeFromSemantics: true),
-                  ),
-                  const SizedBox(height: AkSpace.space4),
-                  AkHeading(title: l.loginTitle, subtitle: l.loginSubtitle),
-                  const SizedBox(height: AkSpace.space6),
-                  AkTextField(
-                    label: l.phoneLabel,
-                    controller: _tel,
-                    hint: l.phoneHint,
-                    prefixText: '+221',
-                    errorText: _phoneInvalid ? _error : null,
-                    keyboardType: TextInputType.phone,
-                    textInputAction: TextInputAction.next,
-                    autofillHints: const [
-                      AutofillHints.telephoneNumberNational
-                    ],
-                  ),
-                  const SizedBox(height: AkSpace.space5),
-                  if (_first) ...[
-                    AkTextField(
-                      fieldKey: const Key('login-suffix'),
-                      label: l.firstLoginLabel,
-                      controller: _suffix,
-                      maxLength: 4,
-                      textCapitalization: TextCapitalization.characters,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(RegExp('[A-Za-z0-9]'))
-                      ],
-                      errorText: _codeInvalid && !_phoneInvalid ? _error : null,
-                      textInputAction: TextInputAction.done,
-                      onSubmitted: (_) => _submit(),
-                    ),
-                    const SizedBox(height: AkSpace.space1),
-                    Text(l.firstLoginHelp,
-                        style:
-                            AkText.bodySm.copyWith(color: context.ak.inkSoft)),
-                  ] else
-                    PinField(
-                      fieldKey: const Key('login-pin'),
-                      label: l.pinLabel,
-                      controller: _pin,
-                      hasError: _codeInvalid,
-                      onCompleted: (_) => _submit(),
-                    ),
-                  if (_error != null &&
-                      !_phoneInvalid &&
-                      !(_first && _codeInvalid)) ...[
-                    const SizedBox(height: AkSpace.space2),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Icon(Icons.error_outline,
-                            size: 18, color: context.ak.danger),
-                        const SizedBox(width: AkSpace.space1),
-                        Expanded(
-                          child: Semantics(
-                            liveRegion: true,
-                            child: Text(
-                              _error!,
-                              key: const Key('login-error'),
-                              style: AkText.bodySm
-                                  .copyWith(color: context.ak.danger),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                  const SizedBox(height: AkSpace.space6),
-                  AkButton(
-                    label: _first ? l.firstLoginContinue : l.loginButton,
-                    onPressed: _submit,
-                    loading: _busy,
-                  ),
-                  const SizedBox(height: AkSpace.space2),
-                  AkButton(
-                    key: const Key('toggle-first'),
-                    kind: AkButtonKind.text,
-                    label: _first ? l.havePinLink : l.firstLoginLink,
-                    onPressed: () => setState(() {
-                      _first = !_first;
-                      _error = null;
-                      _phoneInvalid = false;
-                      _codeInvalid = false;
-                      _pin.clear();
-                      _suffix.clear();
-                    }),
-                  ),
-                  AkButton(
-                    kind: AkButtonKind.text,
-                    label: l.accountForgotPin,
-                    onPressed: _showAccessHelp,
-                  ),
-                  AkButton(
-                    key: const Key('login-join'),
-                    kind: AkButtonKind.text,
-                    label: l.joinLink,
-                    onPressed: () => context.push('/join'),
-                  ),
-                ],
-              ),
-            ),
-          ),
+    return AccessScaffold(
+      title: l.loginTitle,
+      subtitle: l.loginSubtitle,
+      footer: [
+        AkButton(
+          key: const Key('toggle-first'),
+          kind: AkButtonKind.text,
+          label: _first ? l.havePinLink : l.firstLoginLink,
+          onPressed: () => setState(() {
+            _first = !_first;
+            _error = null;
+            _phoneInvalid = false;
+            _codeInvalid = false;
+            _pin.clear();
+            _suffix.clear();
+          }),
         ),
-      ),
+        AkButton(
+          kind: AkButtonKind.text,
+          label: l.accountForgotPin,
+          onPressed: _showAccessHelp,
+        ),
+        AkButton(
+          key: const Key('login-join'),
+          kind: AkButtonKind.text,
+          label: l.joinLink,
+          onPressed: () => context.push('/join'),
+        ),
+      ],
+      children: [
+        AkTextField(
+          label: l.phoneLabel,
+          controller: _tel,
+          hint: l.phoneHint,
+          prefixText: '+221',
+          errorText: _phoneInvalid ? _error : null,
+          keyboardType: TextInputType.phone,
+          textInputAction: TextInputAction.next,
+          autofillHints: const [AutofillHints.telephoneNumberNational],
+        ),
+        const SizedBox(height: AkSpace.space5),
+        if (_first) ...[
+          AkTextField(
+            fieldKey: const Key('login-suffix'),
+            label: l.firstLoginLabel,
+            controller: _suffix,
+            maxLength: 4,
+            textCapitalization: TextCapitalization.characters,
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp('[A-Za-z0-9]'))
+            ],
+            errorText: _codeInvalid && !_phoneInvalid ? _error : null,
+            textInputAction: TextInputAction.done,
+            onSubmitted: (_) => _submit(),
+          ),
+          const SizedBox(height: AkSpace.space1),
+          Text(l.firstLoginHelp,
+              style: AkText.bodySm.copyWith(color: context.ak.inkSoft)),
+        ] else
+          PinField(
+            fieldKey: const Key('login-pin'),
+            label: l.pinLabel,
+            controller: _pin,
+            hasError: _codeInvalid,
+            onCompleted: (_) => _submit(),
+          ),
+        if (_error != null && !_phoneInvalid && !(_first && _codeInvalid)) ...[
+          const SizedBox(height: AkSpace.space2),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(Icons.error_outline, size: 18, color: context.ak.danger),
+              const SizedBox(width: AkSpace.space1),
+              Expanded(
+                child: Semantics(
+                  liveRegion: true,
+                  child: Text(
+                    _error!,
+                    key: const Key('login-error'),
+                    style: AkText.bodySm.copyWith(color: context.ak.danger),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+        const SizedBox(height: AkSpace.space6),
+        AkButton(
+          label: _first ? l.firstLoginContinue : l.loginButton,
+          onPressed: _submit,
+          loading: _busy,
+        ),
+        const SizedBox(height: AkSpace.space2),
+      ],
     );
   }
 }

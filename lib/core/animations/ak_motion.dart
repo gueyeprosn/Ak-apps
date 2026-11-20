@@ -16,23 +16,34 @@ abstract final class AKMotion {
 
 /// Animation finie. L'enfant reste accessible et conserve sa taille.
 class AkReveal extends StatelessWidget {
-  const AkReveal({super.key, required this.child, this.stage = 0});
+  const AkReveal(
+      {super.key,
+      required this.child,
+      this.stage = 0,
+      this.slide = true,
+      this.stagger = false});
 
   final Widget child;
   final int stage;
+  final bool slide;
+  final bool stagger;
 
   @override
   Widget build(BuildContext context) {
     if (MediaQuery.disableAnimationsOf(context)) return child;
+    final delay = 65 * stage;
+    final duration = AKMotion.reveal + Duration(milliseconds: delay);
     return TweenAnimationBuilder<double>(
       tween: Tween(begin: 0, end: 1),
-      duration: AKMotion.reveal + Duration(milliseconds: 65 * stage),
-      curve: AKMotion.ease,
+      duration: duration,
+      curve: stagger
+          ? Interval(delay / duration.inMilliseconds, 1, curve: AKMotion.ease)
+          : AKMotion.ease,
       child: child,
       builder: (context, progress, child) => Opacity(
         opacity: progress,
         child: Transform.translate(
-          offset: Offset(0, 12 * (1 - progress)),
+          offset: Offset(0, slide ? 12 * (1 - progress) : 0),
           child: child,
         ),
       ),

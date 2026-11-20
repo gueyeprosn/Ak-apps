@@ -234,3 +234,12 @@ class OnboardingPref extends Notifier<bool> {
 
 final onboardingPrefProvider =
     NotifierProvider<OnboardingPref, bool>(OnboardingPref.new);
+
+class SplashDoneNotifier extends Notifier<bool> {
+  @override
+  bool build() => false;
+  void complete() => state = true;
+}
+
+final splashDoneProvider =
+    NotifierProvider<SplashDoneNotifier, bool>(SplashDoneNotifier.new);

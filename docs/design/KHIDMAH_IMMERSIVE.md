@@ -6,7 +6,7 @@ L’application démarre sur le logo officiel et présente Ahloul Khidmah avec l
 
 La charte web au commit `80d3686` utilise l’émeraude `#0B3A25` et `#12512F`, l’or `#C9A24C`, l’ivoire `#FBF6EA` et l’encre `#20241C`. La déclinaison mobile adopte `#064C3B` pour les surfaces de marque, `#087A58` pour l’action, `#D6A84D` pour l’accent, `#F8F6F0` pour le fond clair, `#FFFFFF` pour les surfaces relevées et `#172620` pour le texte. Le thème sombre utilise des surfaces vert charbon et une action vert clair. [Feuille de style officielle](https://github.com/gueyeprosn/Ahloul-Khidmah/blob/80d368603842f6bc7677e08e1c458a7846f7a7e9/src/app/globals.css)
 
-Amiri et Cairo sont conservées pour faire correspondre les titres et l’interface FR/AR au site. Les fichiers TTF et leurs licences OFL sont inclus dans le bundle. Le système Flutter applique le sens de lecture arabe, avec les numéros de téléphone et les champs PIN en gauche à droite.
+Plus Jakarta Sans et Noto Sans Arabic sont utilisées conformément au brief de reprise. Les fichiers TTF et leurs licences OFL sont inclus dans le bundle. Le système Flutter applique le sens de lecture arabe, avec les numéros de téléphone et les champs PIN en gauche à droite.
 
 - `AkTheme` et `buildAkTheme` définissent les thèmes dans `lib/app/theme/ak_theme.dart`.
 - `AKColors`, `AkPalette` et `AkText` définissent les couleurs de marque, les rôles sémantiques et la typographie.

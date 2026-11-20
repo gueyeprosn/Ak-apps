@@ -5,14 +5,16 @@ import '../../app/theme/ak_theme.dart';
 import '../../app/theme/ak_tokens.dart';
 import '../../core/animations/ak_motion.dart';
 import '../../core/api/api_error.dart';
+import '../../core/assets/ak_assets.dart';
 import '../../core/config/remote_config.dart';
 import '../../core/format.dart';
 import '../../core/providers.dart';
 import '../../core/security/web_allowlist.dart';
 import '../../core/theme/ak_immersive.dart';
 import '../../l10n/app_localizations.dart';
+import '../../shared/widgets/ak_brand_app_bar.dart';
 import '../../shared/widgets/ak_loading_skeleton.dart';
-import '../../shared/widgets/ak_service_tile.dart';
+import '../../shared/widgets/ak_photo_hero.dart';
 import '../../shared/widgets/ak_widgets.dart';
 import '../../shared/widgets/official_page_button.dart';
 import 'data/catalogue_repository.dart';
@@ -54,120 +56,195 @@ class _BarkeluScreenState extends ConsumerState<BarkeluScreen> {
     final catalogue = ref.watch(currentProducts);
     final categories =
         ref.watch(shopCategoriesProvider).valueOrNull ?? const [];
-    return SafeArea(
-      child: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: AkLayout.contentMax),
-          child: RefreshIndicator(
-            onRefresh: () async {
-              ref.invalidate(shopCategoriesProvider);
-              ref.invalidate(currentProducts);
-              try {
-                await ref.read(currentProducts.future);
-              } catch (_) {
-                // L’état de l’API est affiché dans la liste.
-              }
-            },
-            child: ListView(
-              controller: _scroll,
-              padding: akPagePadding,
-              physics: const AlwaysScrollableScrollPhysics(),
-              children: [
-                AkHeading(
-                    title: l.actionBarkelu, icon: Icons.shopping_bag_outlined),
-                const SizedBox(height: AkSpace.space3),
-                TextField(
-                  controller: _searchField,
-                  textInputAction: TextInputAction.search,
-                  maxLength: 80,
-                  onSubmitted: _search,
-                  decoration: InputDecoration(
-                    labelText: l.shopSearch,
-                    counterText: '',
-                    border: const OutlineInputBorder(),
-                    suffixIcon: AkIconButton(
-                      label: l.shopSearch,
-                      onPressed: () => _search(_searchField.text),
-                      icon: Icons.search,
+    final palette = context.ak;
+    return Scaffold(
+      appBar: AkBrandAppBar(context: context, title: l.actionBarkelu),
+      body: SafeArea(
+        bottom: false,
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: AkLayout.contentMax),
+            child: RefreshIndicator(
+              onRefresh: () async {
+                ref.invalidate(shopCategoriesProvider);
+                ref.invalidate(currentProducts);
+                try {
+                  await ref.read(currentProducts.future);
+                } catch (_) {
+                  // L’état de l’API est affiché dans la liste.
+                }
+              },
+              child: ListView(
+                controller: _scroll,
+                padding: akPagePadding,
+                physics: const AlwaysScrollableScrollPhysics(),
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(AkRadius.radiusXl),
+                    child: AkPhotoHero(
+                      asset: AkAssets.gallery.last,
+                      minHeight: 168,
+                      topPadding: AkSpace.space12,
+                      alignment: const Alignment(0, -.25),
+                      child: Semantics(
+                        header: true,
+                        child: Text(
+                          l.shopSubtitle,
+                          style: AkText.titleLg.copyWith(color: AKColors.ivory),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-                if (categories.isNotEmpty) ...[
-                  const SizedBox(height: AkSpace.space2),
-                  Wrap(
-                    spacing: AkSpace.space2,
-                    children: [
-                      for (final category in categories)
-                        FilterChip(
-                          label: Text(category.name),
-                          selected: _query.category == category.slug,
-                          onSelected: (selected) => setState(() => _query = (
+                  const SizedBox(height: AkSpace.space3),
+                  TextField(
+                    controller: _searchField,
+                    textInputAction: TextInputAction.search,
+                    maxLength: 80,
+                    onSubmitted: _search,
+                    decoration: InputDecoration(
+                      labelText: l.shopSearch,
+                      counterText: '',
+                      filled: true,
+                      fillColor: palette.surfaceRaised,
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: palette.borderControl),
+                        borderRadius: BorderRadius.circular(AkRadius.radiusMd),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: palette.focusRing, width: 2),
+                        borderRadius: BorderRadius.circular(AkRadius.radiusMd),
+                      ),
+                      suffixIcon: AkIconButton(
+                        label: l.shopSearch,
+                        onPressed: () => _search(_searchField.text),
+                        icon: Icons.search,
+                      ),
+                    ),
+                  ),
+                  if (categories.isNotEmpty) ...[
+                    const SizedBox(height: AkSpace.space2),
+                    Wrap(
+                      spacing: AkSpace.space2,
+                      runSpacing: AkSpace.space1,
+                      children: [
+                        ChoiceChip(
+                          shape: const StadiumBorder(),
+                          label: Text(l.shopAll),
+                          selected: _query.category == null,
+                          onSelected: (_) => setState(() => _query = (
                                 search: _query.search,
-                                category: selected ? category.slug : null,
+                                category: null,
                                 page: 1,
                               )),
                         ),
+                        for (final category in categories)
+                          FilterChip(
+                            shape: const StadiumBorder(),
+                            label: Text(category.name),
+                            selected: _query.category == category.slug,
+                            onSelected: (selected) => setState(() => _query = (
+                                  search: _query.search,
+                                  category: selected ? category.slug : null,
+                                  page: 1,
+                                )),
+                          ),
+                      ],
+                    ),
+                  ],
+                  const SizedBox(height: AkSpace.space3),
+                  ...catalogue.when(
+                    loading: () => [AkLoadingSkeleton(label: l.loading)],
+                    error: (error, _) => [
+                      AkBanner(
+                        tone: AkTone.warning,
+                        icon: error is ApiException && error.isNetwork
+                            ? Icons.wifi_off
+                            : Icons.error_outline,
+                        text: error is ApiException && error.isNetwork
+                            ? l.networkError
+                            : l.genericError,
+                      ),
+                      const SizedBox(height: AkSpace.space3),
+                      AkButton(
+                          label: l.retryButton,
+                          onPressed: () => ref.invalidate(currentProducts)),
+                    ],
+                    data: (data) => [
+                      if (data.products.isEmpty)
+                        AkRaisedCard(
+                          child: Padding(
+                            padding: const EdgeInsets.all(AkSpace.space4),
+                            child:
+                                _query.search.isEmpty && _query.category == null
+                                    ? AkHeading(
+                                        icon: Icons.shopping_bag_outlined,
+                                        title: l.comingSoon,
+                                        subtitle: l.barkeluSoonBody,
+                                        section: true,
+                                      )
+                                    : Text(l.shopNoMatches),
+                          ),
+                        ),
+                      if (data.products.isNotEmpty)
+                        AkReveal(
+                          key: ValueKey(_query),
+                          child: LayoutBuilder(
+                            builder: (context, constraints) {
+                              final columns = constraints.maxWidth >= 288 &&
+                                      MediaQuery.textScalerOf(context)
+                                              .scale(14) <
+                                          21
+                                  ? 2
+                                  : 1;
+                              final width = (constraints.maxWidth -
+                                      AkSpace.space3 * (columns - 1)) /
+                                  columns;
+                              return Wrap(
+                                spacing: AkSpace.space3,
+                                runSpacing: AkSpace.space3,
+                                children: [
+                                  for (final product in data.products)
+                                    SizedBox(
+                                      width: width,
+                                      child: AkProductCard(
+                                        product: product,
+                                        onTap: () =>
+                                            _showProduct(context, product),
+                                      ),
+                                    ),
+                                ],
+                              );
+                            },
+                          ),
+                        ),
+                      if (data.products.isNotEmpty)
+                        const SizedBox(height: AkSpace.space3),
+                      if (_query.page > 1 || data.hasNext)
+                        Wrap(
+                          spacing: AkSpace.space2,
+                          children: [
+                            if (_query.page > 1)
+                              AkButton(
+                                  label: l.onboardingBack,
+                                  expand: false,
+                                  kind: AkButtonKind.outline,
+                                  onPressed: () => _page(_query.page - 1)),
+                            if (data.hasNext)
+                              AkButton(
+                                  label: l.onboardingNext,
+                                  expand: false,
+                                  kind: AkButtonKind.outline,
+                                  onPressed: () => _page(_query.page + 1)),
+                          ],
+                        ),
                     ],
                   ),
+                  const SizedBox(height: AkSpace.space3),
+                  OfficialPageButton(
+                      page: OfficialPage.shop, label: l.shopOpenWeb),
                 ],
-                const SizedBox(height: AkSpace.space3),
-                ...catalogue.when(
-                  loading: () => [AkLoadingSkeleton(label: l.loading)],
-                  error: (error, _) => [
-                    AkBanner(
-                      tone: AkTone.warning,
-                      icon: error is ApiException && error.isNetwork
-                          ? Icons.wifi_off
-                          : Icons.error_outline,
-                      text: error is ApiException && error.isNetwork
-                          ? l.networkError
-                          : l.genericError,
-                    ),
-                    const SizedBox(height: AkSpace.space3),
-                    AkButton(
-                        label: l.retryButton,
-                        onPressed: () => ref.invalidate(currentProducts)),
-                  ],
-                  data: (data) => [
-                    if (data.products.isEmpty)
-                      AkCard(
-                        child: _query.search.isEmpty && _query.category == null
-                            ? AkHeading(
-                                title: l.comingSoon,
-                                subtitle: l.barkeluSoonBody,
-                                section: true)
-                            : Text(l.shopNoMatches),
-                      ),
-                    for (final product in data.products) ...[
-                      AkProductCard(
-                          product: product,
-                          onTap: () => _showProduct(context, product)),
-                      const SizedBox(height: AkSpace.space3),
-                    ],
-                    if (_query.page > 1 || data.hasNext)
-                      Wrap(
-                        spacing: AkSpace.space2,
-                        children: [
-                          if (_query.page > 1)
-                            AkButton(
-                                label: l.onboardingBack,
-                                expand: false,
-                                kind: AkButtonKind.outline,
-                                onPressed: () => _page(_query.page - 1)),
-                          if (data.hasNext)
-                            AkButton(
-                                label: l.onboardingNext,
-                                expand: false,
-                                kind: AkButtonKind.outline,
-                                onPressed: () => _page(_query.page + 1)),
-                        ],
-                      ),
-                  ],
-                ),
-                const SizedBox(height: AkSpace.space3),
-                OfficialPageButton(
-                    page: OfficialPage.shop, label: l.shopOpenWeb),
-              ],
+              ),
             ),
           ),
         ),
@@ -205,37 +282,39 @@ class AkProductCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final image = _productImage(ref, product.coverUrl);
-    final slug = product.slug;
-    if (image == null) {
-      return AkCard(
-          padding: EdgeInsets.zero,
-          child: AkServiceTile(
-            icon: Icons.shopping_bag_outlined,
-            label: product.name,
-            onTap: onTap,
-            subtitle: _price(context, product),
-          ));
-    }
-    return AkCard(
-      padding: EdgeInsets.zero,
-      child: InkWell(
-        onTap: onTap,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _ProductPhoto(image: image, tag: slug),
-            Padding(
-              padding: const EdgeInsets.all(AkSpace.space4),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(product.name, style: AkText.bodyStrong),
-                  if (product.price != null) Text(_price(context, product)!),
-                ],
-              ),
+    final price = _price(context, product);
+    final p = context.ak;
+    return AkRaisedCard(
+      onTap: onTap,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          _ProductPhoto(image: image, tag: product.slug, aspectRatio: 4 / 3),
+          Padding(
+            padding: const EdgeInsets.all(AkSpace.space3),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(product.name, style: AkText.bodyStrong),
+                      if (price != null) ...[
+                        const SizedBox(height: AkSpace.space1),
+                        Text(price,
+                            style: AkText.label.copyWith(color: p.primary)),
+                      ],
+                    ],
+                  ),
+                ),
+                const SizedBox(width: AkSpace.space1),
+                ExcludeSemantics(
+                  child: Icon(Icons.chevron_right, color: p.primary),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -252,39 +331,53 @@ class _ProductScreen extends ConsumerWidget {
     final l = AppLocalizations.of(context);
     final details = ref.watch(productDetailsProvider(slug));
     return Scaffold(
-      appBar: AppBar(title: Text(product.name)),
+      appBar: AkBrandAppBar(context: context, title: product.name),
       body: SafeArea(
-        child: ListView(
-          padding: akPagePadding,
-          children: [
-            if (_productImage(
-                    ref, product.coverUrl ?? details.valueOrNull?.coverUrl)
-                case final image?)
-              ClipRRect(
-                borderRadius: BorderRadius.circular(AkRadius.radiusLg),
-                child: _ProductPhoto(image: image, tag: slug),
-              ),
-            const SizedBox(height: AkSpace.space4),
-            _ProductDetails(product: details.valueOrNull ?? product),
-            if (details.isLoading) ...[
-              const SizedBox(height: AkSpace.space3),
-              AkLoadingSkeleton(label: l.loading, count: 1),
-            ] else if (details.hasError) ...[
-              const SizedBox(height: AkSpace.space3),
-              AkBanner(
-                  tone: AkTone.warning,
-                  icon: Icons.error_outline,
-                  text: details.error is ApiException &&
-                          (details.error as ApiException).isNetwork
-                      ? l.networkError
-                      : l.genericError),
-              AkButton(
-                  label: l.retryButton,
-                  kind: AkButtonKind.text,
-                  onPressed: () =>
-                      ref.invalidate(productDetailsProvider(slug))),
-            ],
-          ],
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: AkLayout.contentMax),
+            child: ListView(
+              padding: akPagePadding,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(AkRadius.radiusLg),
+                  child: _ProductPhoto(
+                    image: _productImage(
+                      ref,
+                      product.coverUrl ?? details.valueOrNull?.coverUrl,
+                    ),
+                    tag: slug,
+                  ),
+                ),
+                const SizedBox(height: AkSpace.space4),
+                AkRaisedCard(
+                  child: Padding(
+                    padding: const EdgeInsets.all(AkSpace.space4),
+                    child: _ProductDetails(
+                        product: details.valueOrNull ?? product),
+                  ),
+                ),
+                if (details.isLoading) ...[
+                  const SizedBox(height: AkSpace.space3),
+                  AkLoadingSkeleton(label: l.loading, count: 1),
+                ] else if (details.hasError) ...[
+                  const SizedBox(height: AkSpace.space3),
+                  AkBanner(
+                      tone: AkTone.warning,
+                      icon: Icons.error_outline,
+                      text: details.error is ApiException &&
+                              (details.error as ApiException).isNetwork
+                          ? l.networkError
+                          : l.genericError),
+                  AkButton(
+                      label: l.retryButton,
+                      kind: AkButtonKind.text,
+                      onPressed: () =>
+                          ref.invalidate(productDetailsProvider(slug))),
+                ],
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -333,30 +426,46 @@ class _ProductDetails extends StatelessWidget {
 }
 
 class _ProductPhoto extends StatelessWidget {
-  const _ProductPhoto({required this.image, required this.tag});
+  const _ProductPhoto({
+    required this.image,
+    required this.tag,
+    this.aspectRatio = 16 / 9,
+  });
 
-  final String image;
+  final String? image;
   final String? tag;
+  final double aspectRatio;
 
   @override
   Widget build(BuildContext context) {
+    final p = context.ak;
+    final source = image;
+    final placeholder = ColoredBox(
+      color: p.surfaceTint,
+      child: Center(
+        child: Icon(Icons.shopping_bag_outlined, color: p.primary, size: 32),
+      ),
+    );
     final photo = AspectRatio(
-      aspectRatio: 2,
-      child: LayoutBuilder(
-          builder: (context, constraints) => Image.network(
-                image,
+      aspectRatio: aspectRatio,
+      child: source == null
+          ? placeholder
+          : LayoutBuilder(
+              builder: (context, constraints) => Image.network(
+                source,
                 fit: BoxFit.cover,
                 cacheWidth: (constraints.maxWidth *
                         MediaQuery.devicePixelRatioOf(context))
-                    .clamp(360, 1440)
+                    .clamp(320, 1440)
                     .round(),
                 excludeFromSemantics: true,
-                errorBuilder: (context, error, stackTrace) => ColoredBox(
-                  color: context.ak.surfaceSunken,
-                  child: const Center(
-                      child: Icon(Icons.image_not_supported_outlined)),
-                ),
-              )),
+                frameBuilder: (context, child, frame, synchronouslyLoaded) =>
+                    synchronouslyLoaded || frame != null
+                        ? child
+                        : ColoredBox(color: p.surfaceSunken),
+                errorBuilder: (context, error, stackTrace) => placeholder,
+              ),
+            ),
     );
     return tag == null || MediaQuery.disableAnimationsOf(context)
         ? photo

@@ -1,3 +1,5 @@
+import 'package:ahloulkhidmah_mobile/features/media/media_screen.dart';
+import 'package:ahloulkhidmah_mobile/features/barkelu/barkelu_screen.dart';
 import 'package:ahloulkhidmah_mobile/core/animations/ak_motion.dart';
 import 'package:ahloulkhidmah_mobile/core/providers.dart';
 import 'package:ahloulkhidmah_mobile/features/home/home_screen.dart';
@@ -69,11 +71,21 @@ void main() {
   testWidgets('la galerie ouvre une photo officielle et revient à la liste',
       (tester) async {
     await pumpApp(tester, routes: configRoute);
-    final gallery = find.text('Explorer les photos');
+    final gallery = find.text('Médiathèque');
     await tester.scrollUntilVisible(gallery, 160);
     await tester.tap(gallery);
     await tester.pumpAndSettle();
     final caption = find.text('Grande Mosquée de Touba — vue drone');
+    await tester.scrollUntilVisible(
+      caption,
+      120,
+      scrollable: find
+          .descendant(
+            of: find.byType(MediaScreen),
+            matching: find.byType(Scrollable),
+          )
+          .first,
+    );
     await tester.tap(caption);
     await tester.pumpAndSettle();
     expect(find.byType(AkImageViewer), findsOneWidget);
@@ -111,13 +123,23 @@ void main() {
             },
           }),
     });
-    await tester.tap(find.text('Barkelu'));
+    await tester.tap(findTab('Barkelu'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Textile'));
     await tester.pumpAndSettle();
     await tester.enterText(find.byType(TextField), 'sac');
     await tester.testTextInput.receiveAction(TextInputAction.search);
     await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
+      find.text('Sac en toile'),
+      120,
+      scrollable: find
+          .descendant(
+            of: find.byType(BarkeluScreen),
+            matching: find.byType(Scrollable),
+          )
+          .first,
+    );
     await tester.tap(find.text('Sac en toile'));
     await tester.pumpAndSettle();
     expect(find.textContaining('Toile verte'), findsOneWidget);

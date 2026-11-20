@@ -49,16 +49,34 @@ class AmountChoice extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        for (final v in values) ...[
-          AkChoiceTile(
-            key: Key('amount-$v'),
-            title: formatAmount(int.parse(v), lang),
-            subtitle: perMonth ? l.amountPerMonth : null,
-            selected: selected == v,
-            onTap: () => onSelected(v),
-          ),
-          const SizedBox(height: AkSpace.space2),
-        ],
+        LayoutBuilder(
+          builder: (context, constraints) {
+            final twoColumns = constraints.maxWidth >= 312 &&
+                MediaQuery.textScalerOf(context).scale(14) <= 18;
+            const gap = AkSpace.space2;
+            final width = twoColumns
+                ? (constraints.maxWidth - gap) / 2
+                : constraints.maxWidth;
+            return Wrap(
+              spacing: gap,
+              runSpacing: gap,
+              children: [
+                for (final value in values)
+                  SizedBox(
+                    width: width,
+                    child: AkChoiceTile(
+                      key: Key('amount-$value'),
+                      title: formatAmount(int.parse(value), lang),
+                      subtitle: perMonth ? l.amountPerMonth : null,
+                      selected: selected == value,
+                      onTap: () => onSelected(value),
+                    ),
+                  ),
+              ],
+            );
+          },
+        ),
+        const SizedBox(height: AkSpace.space2),
         AkChoiceTile(
           key: const Key('amount-autre'),
           title: l.amountOther,

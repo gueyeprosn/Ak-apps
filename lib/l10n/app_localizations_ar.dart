@@ -9,6 +9,85 @@ class AppLocalizationsAr extends AppLocalizations {
   AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
+  String get aboutTitle => 'من نحن؟';
+
+  @override
+  String get aboutHeroTitle => 'نخدم معًا';
+
+  @override
+  String get aboutHeroBody => 'مجتمع ملتزم بخدمة طوبى والطريقة المريدية.';
+
+  @override
+  String get aboutMissionTitle => 'رسالتنا';
+
+  @override
+  String get aboutMissionBody =>
+      'يجمع أهل الخدمة من يرغبون في تسخير وقتهم ومهاراتهم ومواردهم لخدمة المجتمع. ونستند إلى العلم والعمل والتضامن لتنفيذ مشاريع نافعة ومستدامة.';
+
+  @override
+  String get aboutPillarsTitle => 'من الخدمة إلى العمل';
+
+  @override
+  String get aboutMobilize => 'حشد الطاقات';
+
+  @override
+  String get aboutMobilizeBody => 'جمع الراغبين في المساهمة في خدمة المجتمع.';
+
+  @override
+  String get aboutOrganize => 'التنظيم';
+
+  @override
+  String get aboutOrganizeBody => 'تنسيق المهارات والمبادرات.';
+
+  @override
+  String get aboutFund => 'التمويل';
+
+  @override
+  String get aboutFundBody => 'توفير الموارد اللازمة لتنفيذ المشاريع.';
+
+  @override
+  String get aboutImpact => 'الأثر المستدام';
+
+  @override
+  String get aboutImpactBody => 'دعم الأعمال النافعة للمجتمع.';
+
+  @override
+  String get aboutContacts => 'تواصل معنا';
+
+  @override
+  String get aboutLocation => 'طوبى، السنغال';
+
+  @override
+  String get aboutEmail => 'البريد الإلكتروني';
+
+  @override
+  String get aboutReadOfficial => 'اقرأ التعريف الرسمي';
+
+  @override
+  String get aboutWhatsApp => 'تواصل عبر واتساب';
+
+  @override
+  String get cardDetails => 'تفاصيل البطاقة';
+
+  @override
+  String get contributionsLabel => 'الاشتراكات';
+
+  @override
+  String get mediaLabel => 'المكتبة الإعلامية';
+
+  @override
+  String get assalamuAlaykum => 'السلام عليكم';
+
+  @override
+  String get welcomeTitle => 'مرحبًا بكم في أهل الخدمة';
+
+  @override
+  String get shopSubtitle => 'متجر أهل الخدمة التضامني';
+
+  @override
+  String get shopAll => 'كل المنتجات';
+
+  @override
   String get loginTitle => 'مساحة الأعضاء';
 
   @override

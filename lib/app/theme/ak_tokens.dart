@@ -146,6 +146,8 @@ abstract final class AkSize {
 }
 
 abstract final class AkFonts {
-  static const display = 'Amiri';
-  static const sans = 'Cairo';
+  static const sans = 'Plus Jakarta Sans';
+  static const display = sans;
+  static const arabic = 'Noto Sans Arabic';
+  static const fallback = [arabic];
 }

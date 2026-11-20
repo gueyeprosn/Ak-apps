@@ -72,7 +72,7 @@ void main() {
     });
 
     test('la configuration embarquée est exploitable seule', () {
-      expect(MobileConfig.embedded.visibleTabs.length, 4);
+      expect(MobileConfig.embedded.visibleTabs.length, 5);
       expect(MobileConfig.embedded.maintenanceEnabled, isFalse);
     });
   });

@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import '../../app/theme/ak_theme.dart';
 import '../../app/theme/ak_tokens.dart';
 import '../../core/animations/ak_motion.dart';
+export 'ak_premium_cards.dart';
 
 const akPagePadding = EdgeInsets.fromLTRB(
   AkSpace.space4,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../core/theme/ak_immersive.dart';
 import 'ak_tokens.dart';
 
 /// Expose la palette complète de la charte (au-delà du `ColorScheme`).
@@ -26,6 +27,8 @@ abstract final class AkText {
   static TextStyle _t(String family, double size, double line, FontWeight w) =>
       TextStyle(
         fontFamily: family,
+        fontFamilyFallback: AkFonts.fallback,
+        fontVariations: [FontVariation.weight(w.value.toDouble())],
         fontSize: size,
         height: line / size,
         fontWeight: w,
@@ -96,6 +99,7 @@ ThemeData buildAkTheme(Brightness brightness) {
     scaffoldBackgroundColor: p.surface,
     canvasColor: p.surface,
     fontFamily: AkFonts.sans,
+    fontFamilyFallback: AkFonts.fallback,
     textTheme: textTheme,
     dividerColor: p.border,
     appBarTheme: AppBarTheme(
@@ -107,14 +111,16 @@ ThemeData buildAkTheme(Brightness brightness) {
       titleTextStyle: AkText.title.copyWith(color: p.ink),
     ),
     navigationBarTheme: NavigationBarThemeData(
-      backgroundColor: p.surfaceRaised,
-      indicatorColor: p.surfaceTint,
+      backgroundColor: AKColors.deep,
+      indicatorColor: AKColors.gold,
       elevation: 0,
       surfaceTintColor: Colors.transparent,
       labelTextStyle: WidgetStateProperty.resolveWith(
         (states) => AkText.caption.copyWith(
           fontWeight: FontWeight.w600,
-          color: states.contains(WidgetState.selected) ? p.primary : p.inkSoft,
+          color: states.contains(WidgetState.selected)
+              ? AKColors.goldLight
+              : AKColors.ivory,
         ),
       ),
     ),

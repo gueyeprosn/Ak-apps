@@ -53,3 +53,7 @@ Les images de marque sont réutilisées sur instruction du propriétaire du proj
 ## Ressources encore à confirmer
 
 Le diaporama officiel suffit pour les écrans initiaux. Les contenus éditoriaux dynamiques, les vidéos et les mises à jour d’albums nécessitent une source publique documentée. L’application peut ouvrir la médiathèque officielle pour ces contenus. Le catalogue produit récupère ses ressources via l’API existante lorsqu’elles sont renseignées.
+
+### Typographie de la reprise du 20 novembre
+
+Plus Jakarta Sans et Noto Sans Arabic sont embarquées en TTF variable avec leurs licences SIL OFL 1.1. Les fontes Cairo et Amiri sont conservées dans les sources pour les références historiques. [Plus Jakarta Sans](https://github.com/google/fonts/tree/main/ofl/plusjakartasans) · [Noto Sans Arabic](https://github.com/google/fonts/tree/main/ofl/notosansarabic)

@@ -7,6 +7,7 @@ import 'package:ahloulkhidmah_mobile/core/storage/card_cache.dart';
 import 'package:ahloulkhidmah_mobile/core/providers.dart';
 import 'package:ahloulkhidmah_mobile/features/payment/pay_flow_controller.dart';
 import 'package:ahloulkhidmah_mobile/features/payment/payment_security.dart';
+import 'package:ahloulkhidmah_mobile/features/shell/tab_shell.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -32,6 +33,11 @@ class Pumped {
   final ProviderContainer container;
   final FakeOpener opener;
 }
+
+Finder findTab(String label) => find.descendant(
+      of: find.byType(AkBottomNavigation),
+      matching: find.text(label),
+    );
 
 const session = AuthTokens(accessToken: 'a', refreshToken: 'r');
 

@@ -8,6 +8,7 @@ import '../../core/errors/error_messages.dart';
 import '../../core/providers.dart';
 import '../../l10n/app_localizations.dart';
 import '../../shared/widgets/ak_widgets.dart';
+import 'access_scaffold.dart';
 
 /// Création du premier PIN. Le jeton à usage unique reste en mémoire ; s'il
 /// manque (application relancée), on revient à la connexion.
@@ -68,45 +69,40 @@ class _PinSetupScreenState extends ConsumerState<PinSetupScreen> {
     final l = AppLocalizations.of(context);
     final p = context.ak;
     final ready = _pin.text.length == 4 && _confirm.text.length == 4;
-    return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: akPagePadding,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              AkHeading(title: l.pinSetupTitle, subtitle: l.pinSetupBody, icon: Icons.lock_outline),
-              const SizedBox(height: AkSpace.space6),
-              PinField(
-                fieldKey: const Key('setup-pin'),
-                label: l.newPinLabel,
-                controller: _pin,
-                autofocus: true,
-                onChanged: (_) => setState(() => _error = null),
-              ),
-              const SizedBox(height: AkSpace.space5),
-              PinField(
-                fieldKey: const Key('setup-confirm'),
-                label: l.confirmPinLabel,
-                controller: _confirm,
-                hasError: _error != null,
-                onChanged: (_) => setState(() => _error = null),
-              ),
-              if (_error != null) ...[
-                const SizedBox(height: AkSpace.space2),
-                Semantics(
-                  liveRegion: true,
-                  child: Text(_error!,
-                      key: const Key('setup-error'), style: AkText.bodySm.copyWith(color: p.danger)),
-                ),
-              ],
-              const SizedBox(height: AkSpace.space6),
-              AkButton(label: l.pinSave, onPressed: ready ? _submit : null, loading: _busy),
-            ],
-          ),
+    return AccessScaffold(
+      title: l.pinSetupTitle,
+      subtitle: l.pinSetupBody,
+      children: [
+        PinField(
+          fieldKey: const Key('setup-pin'),
+          label: l.newPinLabel,
+          controller: _pin,
+          autofocus: true,
+          onChanged: (_) => setState(() => _error = null),
         ),
-      ),
+        const SizedBox(height: AkSpace.space5),
+        PinField(
+          fieldKey: const Key('setup-confirm'),
+          label: l.confirmPinLabel,
+          controller: _confirm,
+          hasError: _error != null,
+          onChanged: (_) => setState(() => _error = null),
+        ),
+        if (_error != null) ...[
+          const SizedBox(height: AkSpace.space2),
+          Semantics(
+            liveRegion: true,
+            child: Text(_error!,
+                key: const Key('setup-error'),
+                style: AkText.bodySm.copyWith(color: p.danger)),
+          ),
+        ],
+        const SizedBox(height: AkSpace.space6),
+        AkButton(
+            label: l.pinSave,
+            onPressed: ready ? _submit : null,
+            loading: _busy),
+      ],
     );
   }
 }

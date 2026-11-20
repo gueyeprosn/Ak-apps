@@ -98,6 +98,162 @@ abstract class AppLocalizations {
     Locale('fr')
   ];
 
+  /// No description provided for @aboutTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Qui sommes-nous ?'**
+  String get aboutTitle;
+
+  /// No description provided for @aboutHeroTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Servir ensemble'**
+  String get aboutHeroTitle;
+
+  /// No description provided for @aboutHeroBody.
+  ///
+  /// In fr, this message translates to:
+  /// **'Une communauté engagée pour Touba et la Mouridiyah.'**
+  String get aboutHeroBody;
+
+  /// No description provided for @aboutMissionTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Notre raison d’être'**
+  String get aboutMissionTitle;
+
+  /// No description provided for @aboutMissionBody.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ahloul Khidmah rassemble des personnes qui souhaitent mettre leur temps, leurs compétences et leurs ressources au service de la communauté. Notre démarche associe le savoir, le travail et la solidarité pour faire avancer des projets utiles dans la durée.'**
+  String get aboutMissionBody;
+
+  /// No description provided for @aboutPillarsTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Du service à l’action'**
+  String get aboutPillarsTitle;
+
+  /// No description provided for @aboutMobilize.
+  ///
+  /// In fr, this message translates to:
+  /// **'Mobiliser'**
+  String get aboutMobilize;
+
+  /// No description provided for @aboutMobilizeBody.
+  ///
+  /// In fr, this message translates to:
+  /// **'Rassembler celles et ceux qui souhaitent contribuer.'**
+  String get aboutMobilizeBody;
+
+  /// No description provided for @aboutOrganize.
+  ///
+  /// In fr, this message translates to:
+  /// **'Organiser'**
+  String get aboutOrganize;
+
+  /// No description provided for @aboutOrganizeBody.
+  ///
+  /// In fr, this message translates to:
+  /// **'Coordonner les compétences et les initiatives.'**
+  String get aboutOrganizeBody;
+
+  /// No description provided for @aboutFund.
+  ///
+  /// In fr, this message translates to:
+  /// **'Financer'**
+  String get aboutFund;
+
+  /// No description provided for @aboutFundBody.
+  ///
+  /// In fr, this message translates to:
+  /// **'Réunir les moyens nécessaires aux projets.'**
+  String get aboutFundBody;
+
+  /// No description provided for @aboutImpact.
+  ///
+  /// In fr, this message translates to:
+  /// **'Agir durablement'**
+  String get aboutImpact;
+
+  /// No description provided for @aboutImpactBody.
+  ///
+  /// In fr, this message translates to:
+  /// **'Soutenir des actions utiles à la communauté.'**
+  String get aboutImpactBody;
+
+  /// No description provided for @aboutContacts.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nous contacter'**
+  String get aboutContacts;
+
+  /// No description provided for @aboutLocation.
+  ///
+  /// In fr, this message translates to:
+  /// **'Touba, Sénégal'**
+  String get aboutLocation;
+
+  /// No description provided for @aboutEmail.
+  ///
+  /// In fr, this message translates to:
+  /// **'Courriel'**
+  String get aboutEmail;
+
+  /// No description provided for @aboutReadOfficial.
+  ///
+  /// In fr, this message translates to:
+  /// **'Lire la présentation officielle'**
+  String get aboutReadOfficial;
+
+  /// No description provided for @aboutWhatsApp.
+  ///
+  /// In fr, this message translates to:
+  /// **'Contacter sur WhatsApp'**
+  String get aboutWhatsApp;
+
+  /// No description provided for @cardDetails.
+  ///
+  /// In fr, this message translates to:
+  /// **'Détails de la carte'**
+  String get cardDetails;
+
+  /// No description provided for @contributionsLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Cotisations'**
+  String get contributionsLabel;
+
+  /// No description provided for @mediaLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Médiathèque'**
+  String get mediaLabel;
+
+  /// No description provided for @assalamuAlaykum.
+  ///
+  /// In fr, this message translates to:
+  /// **'Salam alaykoum'**
+  String get assalamuAlaykum;
+
+  /// No description provided for @welcomeTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Bienvenue sur Ahloul Khidmah'**
+  String get welcomeTitle;
+
+  /// No description provided for @shopSubtitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'La boutique solidaire Ahloul Khidmah'**
+  String get shopSubtitle;
+
+  /// No description provided for @shopAll.
+  ///
+  /// In fr, this message translates to:
+  /// **'Tous les produits'**
+  String get shopAll;
+
   /// No description provided for @loginTitle.
   ///
   /// In fr, this message translates to:

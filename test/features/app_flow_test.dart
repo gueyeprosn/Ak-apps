@@ -8,9 +8,10 @@ import 'package:ahloulkhidmah_mobile/core/storage/card_cache.dart';
 import 'package:flutter/widgets.dart' show Directionality, Key, Scrollable, TextDirection;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter/material.dart' show Icons, Scaffold, TextField;
+import 'package:flutter/material.dart' show Scaffold, TextField;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../support/pump_app.dart' show findTab;
 import '../support/fake_adapter.dart';
 import '../support/harness.dart';
 
@@ -138,7 +139,7 @@ void main() {
       await pumpApp(tester,
           routes: {'GET /api/mobile/v1/config': networkDown(), 'GET /api/store/products': networkDown()});
       expect(find.text('Accueil'), findsOneWidget);
-      expect(find.text('Cotisations'), findsOneWidget);
+      expect(findTab('Cotisations'), findsOneWidget);
     });
 
     testWidgets('lien de rubrique en WebView : refusé hors liste blanche', (tester) async {
@@ -359,7 +360,7 @@ void main() {
     testWidgets('historique des versements, montants formatés', (tester) async {
       await pumpApp(tester,
           routes: memberRoutes(versements: [_paid('2026-10', 'octobre 2026')]), tokens: _session);
-      await tester.tap(find.text('Cotisations'));
+      await tester.tap(findTab('Cotisations'));
       await tester.pumpAndSettle();
       expect(find.text('octobre 2026'), findsOneWidget);
       expect(find.text('1 400 FCFA'), findsOneWidget);
@@ -368,7 +369,7 @@ void main() {
 
     testWidgets('historique vide : état « Aucun versement »', (tester) async {
       await pumpApp(tester, routes: memberRoutes(), tokens: _session);
-      await tester.tap(find.text('Cotisations'));
+      await tester.tap(findTab('Cotisations'));
       await tester.pumpAndSettle();
       expect(find.text('Aucun versement'), findsOneWidget);
     });
@@ -397,7 +398,7 @@ void main() {
 
     testWidgets('Barkelu : boutique vide = « Bientôt disponible » (état réel actuel)', (tester) async {
       await pumpApp(tester, routes: baseRoutes());
-      await tester.tap(find.byIcon(Icons.shopping_bag_outlined));
+      await tester.tap(findTab('Barkelu'));
       await tester.pumpAndSettle();
       expect(find.text('Bientôt disponible'), findsOneWidget);
     });
@@ -412,7 +413,7 @@ void main() {
               'total': 1
             }),
       });
-      await tester.tap(find.byIcon(Icons.shopping_bag_outlined));
+      await tester.tap(findTab('Barkelu'));
       await tester.pumpAndSettle();
       expect(find.text('Tote Bag'), findsOneWidget);
       expect(find.text('4 000 FCFA'), findsOneWidget);
