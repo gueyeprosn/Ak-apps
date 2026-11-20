@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../core/animations/ak_motion.dart';
 import '../../core/config/remote_config.dart';
 import '../../core/providers.dart';
+import '../../features/about/about_screen.dart';
 import '../../features/auth/login_screen.dart';
 import '../../features/auth/pin_setup_screen.dart';
 import '../../features/card/card_screen.dart';
@@ -22,8 +23,10 @@ const _gateRoutes = {'/splash', '/offline', '/maintenance', '/update-required'};
 /// Décide où se trouve l'utilisateur d'après l'état global : chargement,
 /// hors ligne, maintenance, version trop ancienne, puis navigation normale.
 String? computeRedirect(Ref ref, String location) {
+  final splashDone = ref.read(splashDoneProvider);
   final boot = ref.read(bootstrapProvider);
-  if (boot.isLoading) return location == '/splash' ? null : '/splash';
+  if (!splashDone || boot.isLoading)
+    return location == '/splash' ? null : '/splash';
   if (boot.hasError) return location == '/offline' ? null : '/offline';
 
   final cfg = ref.read(configProvider).value?.config ?? MobileConfig.embedded;
@@ -61,6 +64,7 @@ String? computeRedirect(Ref ref, String location) {
 final routerProvider = Provider<GoRouter>((ref) {
   final refresh = ValueNotifier<int>(0);
   void bump(Object? a, Object? b) => refresh.value++;
+  ref.listen(splashDoneProvider, bump);
   ref.listen(authControllerProvider, bump);
   ref.listen(bootstrapProvider, bump);
   ref.listen(configProvider, bump);
@@ -97,6 +101,14 @@ final routerProvider = Provider<GoRouter>((ref) {
           context: context,
           pageKey: state.pageKey,
           child: const OnboardingScreen(),
+        ),
+      ),
+      GoRoute(
+        path: '/qui-sommes-nous',
+        pageBuilder: (context, state) => AkPageTransition<void>(
+          context: context,
+          pageKey: state.pageKey,
+          child: const AboutScreen(),
         ),
       ),
       GoRoute(

@@ -37,7 +37,7 @@ lib/
 - **Authentification** : jeton d'accès (15 min) + jeton de renouvellement rotatif dans le stockage sécurisé du système ; un seul renouvellement à la fois ; une panne réseau ne déconnecte jamais.
 - **Aucun secret dans l'application**, aucune clé de paiement ; la confirmation d'un paiement vient toujours du serveur.
 
-Polices Cairo et Amiri (licence OFL) embarquées dans `assets/fonts/`.
+Polices Plus Jakarta Sans et Noto Sans Arabic (licence OFL) embarquées dans `assets/fonts/`.
 
 ## Notifications Firebase
 

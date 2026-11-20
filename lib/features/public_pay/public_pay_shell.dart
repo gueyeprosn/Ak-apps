@@ -8,7 +8,9 @@ import '../../core/api/api_error.dart';
 import '../../core/errors/error_messages.dart';
 import '../../core/format.dart';
 import '../../core/providers.dart';
+import '../../core/theme/ak_immersive.dart';
 import '../../l10n/app_localizations.dart';
+import '../../shared/widgets/ak_brand_app_bar.dart';
 import '../../shared/widgets/ak_widgets.dart';
 import '../payment/pay_flow_controller.dart' show urlOpenerProvider;
 import '../payment/pay_widgets.dart';
@@ -52,7 +54,8 @@ class PublicPayShell extends ConsumerStatefulWidget {
     required this.form,
   });
 
-  final AutoDisposeNotifierProvider<PublicPayController, PublicPayState> provider;
+  final AutoDisposeNotifierProvider<PublicPayController, PublicPayState>
+      provider;
   final PublicPayCopy copy;
   final Widget form;
 
@@ -60,7 +63,8 @@ class PublicPayShell extends ConsumerStatefulWidget {
   ConsumerState<PublicPayShell> createState() => _PublicPayShellState();
 }
 
-class _PublicPayShellState extends ConsumerState<PublicPayShell> with WidgetsBindingObserver {
+class _PublicPayShellState extends ConsumerState<PublicPayShell>
+    with WidgetsBindingObserver {
   final _phone = TextEditingController();
   bool _phonePrefilled = false;
 
@@ -102,7 +106,9 @@ class _PublicPayShellState extends ConsumerState<PublicPayShell> with WidgetsBin
     final l = AppLocalizations.of(context);
     final s = ref.watch(widget.provider);
     final c = ref.read(widget.provider.notifier);
-    final enabled = ref.watch(configProvider).value?.config.featureEnabled('payments') ?? true;
+    final enabled =
+        ref.watch(configProvider).value?.config.featureEnabled('payments') ??
+            true;
 
     return PopScope(
       // Pendant l'attente, « retour » ramène au choix du moyen au lieu de quitter.
@@ -111,29 +117,31 @@ class _PublicPayShellState extends ConsumerState<PublicPayShell> with WidgetsBin
         if (!didPop) c.leaveWaiting();
       },
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          title: Text(widget.copy.title, style: AkText.titleLg),
-        ),
+        appBar: AkBrandAppBar(context: context, title: widget.copy.title),
         body: SafeArea(
-          child: !enabled
-              ? StateView(
-                  icon: Icons.block,
-                  tone: AkTone.warning,
-                  title: l.payUnavailableTitle,
-                  body: l.payUnavailableBody,
-                )
-              : Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    Offstage(
-                      offstage: s.step != PublicPayStep.form,
-                      child: widget.form,
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: AkLayout.tablet),
+              child: !enabled
+                  ? StateView(
+                      icon: Icons.block,
+                      tone: AkTone.warning,
+                      title: l.payUnavailableTitle,
+                      body: l.payUnavailableBody,
+                    )
+                  : Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        Offstage(
+                          offstage: s.step != PublicPayStep.form,
+                          child: widget.form,
+                        ),
+                        if (s.step != PublicPayStep.form)
+                          _stepView(context, l, s, c),
+                      ],
                     ),
-                    if (s.step != PublicPayStep.form) _stepView(context, l, s, c),
-                  ],
-                ),
+            ),
+          ),
         ),
       ),
     );
@@ -318,7 +326,9 @@ class _DoneStep extends StatelessWidget {
                     kind: AkButtonKind.outline,
                     label: l.payReceipt,
                     icon: Icons.receipt_long_outlined,
-                    onPressed: () => ref.read(urlOpenerProvider).open(Uri.parse(snap.receiptUrl!)),
+                    onPressed: () => ref
+                        .read(urlOpenerProvider)
+                        .open(Uri.parse(snap.receiptUrl!)),
                   ),
                 ),
               const SizedBox(height: AkSpace.space2),
@@ -413,6 +423,63 @@ class _WaveManualStep extends StatelessWidget {
 
 /// Message d'erreur du formulaire ; en cas de numéro déjà inscrit (409),
 /// propose de se connecter.
+/// Un groupe de champs du formulaire d’adhésion ou de contribution.
+class PublicPaySection extends StatelessWidget {
+  const PublicPaySection({
+    super.key,
+    required this.title,
+    required this.icon,
+    required this.children,
+    this.subtitle,
+  });
+
+  final String title;
+  final IconData icon;
+  final String? subtitle;
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) {
+    final p = context.ak;
+    return AkRaisedCard(
+      child: Padding(
+        padding: const EdgeInsets.all(AkSpace.space3),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              children: [
+                ExcludeSemantics(
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: p.surfaceTint,
+                      borderRadius: BorderRadius.circular(AkRadius.radiusMd),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(AkSpace.space2),
+                      child: Icon(icon, color: p.primary, size: 20),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: AkSpace.space3),
+                Expanded(
+                  child: AkHeading(title: title, section: true),
+                ),
+              ],
+            ),
+            if (subtitle case final text?) ...[
+              const SizedBox(height: AkSpace.space2),
+              Text(text, style: AkText.bodySm.copyWith(color: p.inkSoft)),
+            ],
+            const SizedBox(height: AkSpace.space3),
+            ...children,
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class PublicFormError extends StatelessWidget {
   const PublicFormError({super.key, required this.error});
   final Object error;
@@ -443,4 +510,5 @@ class PublicFormError extends StatelessWidget {
 }
 
 /// Renvoie `true` quand le serveur a refusé un numéro déjà inscrit.
-bool publicErrorIsDuplicate(Object error) => error is ApiException && error.status == 409;
+bool publicErrorIsDuplicate(Object error) =>
+    error is ApiException && error.status == 409;

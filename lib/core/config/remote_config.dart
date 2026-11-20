@@ -170,6 +170,14 @@ class MobileConfig {
         screen: 'home',
       ),
       TabConfig(
+        id: 'card',
+        label: LocalizedText(fr: 'Carte', ar: 'بطاقة'),
+        type: TabType.native,
+        icon: 'card',
+        screen: 'card',
+        requiresAuth: true,
+      ),
+      TabConfig(
         id: 'cotisations',
         label: LocalizedText(fr: 'Cotisations', ar: 'الاشتراكات'),
         type: TabType.native,
@@ -180,7 +188,7 @@ class MobileConfig {
       ),
       TabConfig(
         id: 'barkelu',
-        label: LocalizedText(fr: 'Barkelu', ar: 'Barkelu'),
+        label: LocalizedText(fr: 'Barkelu', ar: 'المتجر'),
         type: TabType.native,
         icon: 'shop',
         screen: 'barkelu',
@@ -188,7 +196,7 @@ class MobileConfig {
       ),
       TabConfig(
         id: 'account',
-        label: LocalizedText(fr: 'Mon compte', ar: 'حسابي'),
+        label: LocalizedText(fr: 'Compte', ar: 'حسابي'),
         type: TabType.native,
         icon: 'person',
         screen: 'account',

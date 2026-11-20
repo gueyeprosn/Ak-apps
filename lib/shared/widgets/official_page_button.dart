@@ -6,6 +6,8 @@ import '../../l10n/app_localizations.dart';
 import 'ak_widgets.dart';
 
 enum OfficialPage {
+  about('https://www.ahloulkhidmah.org/qui-sommes-nous'),
+  email('mailto:contact@ahloulkhidmah.org'),
   media('https://www.ahloulkhidmah.org/mediatheque'),
   shop('https://www.ahloulkhidmah.org/boutique'),
   account('https://www.ahloulkhidmah.org/mon-espace'),
@@ -20,6 +22,23 @@ final officialPageLauncherProvider =
     Provider<Future<bool> Function(Uri)>((ref) {
   return (uri) => launchUrl(uri, mode: LaunchMode.externalApplication);
 });
+
+Future<void> openOfficialDestination(
+  BuildContext context,
+  WidgetRef ref,
+  Uri uri,
+) async {
+  var opened = false;
+  try {
+    opened = await ref.read(officialPageLauncherProvider)(uri);
+  } catch (_) {
+    // Une application compatible peut manquer sur cet appareil.
+  }
+  if (opened || !context.mounted) return;
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(content: Text(AppLocalizations.of(context).officialPageError)),
+  );
+}
 
 /// Les destinations sont connues à la compilation. Le navigateur ouvre la
 /// page avec sa propre session web, sans jeton de l’application.
@@ -45,21 +64,11 @@ class OfficialPageButton extends ConsumerWidget {
         icon: icon,
         kind: kind,
         onPressed: () async {
-          var opened = false;
-          try {
-            final slug = productSlug;
-            final uri = page == OfficialPage.shop && slug != null
-                ? Uri.https('www.ahloulkhidmah.org', '/boutique/produits/$slug')
-                : Uri.parse(page.url);
-            opened = await ref.read(officialPageLauncherProvider)(uri);
-          } catch (_) {
-            // Certains appareils n'ont aucune application pour ouvrir le lien.
-          }
-          if (opened || !context.mounted) return;
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-                content: Text(AppLocalizations.of(context).officialPageError)),
-          );
+          final slug = productSlug;
+          final uri = page == OfficialPage.shop && slug != null
+              ? Uri.https('www.ahloulkhidmah.org', '/boutique/produits/$slug')
+              : Uri.parse(page.url);
+          await openOfficialDestination(context, ref, uri);
         },
       );
 }

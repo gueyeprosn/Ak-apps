@@ -15,11 +15,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart' show Image, Key, precacheImage;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter/material.dart' show Icons, TextField;
+import 'package:flutter/material.dart' show TextField;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../test/support/fake_adapter.dart';
 import '../../test/support/harness.dart';
+import '../../test/support/pump_app.dart' show findTab;
 
 Future<void> _loadFont(String family, List<String> files) async {
   final loader = FontLoader(family);
@@ -95,13 +96,8 @@ Future<void> _shot(WidgetTester tester, String name) async {
 void main() {
   setUpAll(() async {
     const f = 'assets/fonts';
-    await _loadFont('Cairo', [
-      '$f/Cairo-Regular.ttf',
-      '$f/Cairo-Medium.ttf',
-      '$f/Cairo-SemiBold.ttf',
-      '$f/Cairo-Bold.ttf',
-    ]);
-    await _loadFont('Amiri', ['$f/Amiri-Regular.ttf', '$f/Amiri-Bold.ttf']);
+    await _loadFont('Plus Jakarta Sans', ['$f/PlusJakartaSans.ttf']);
+    await _loadFont('Noto Sans Arabic', ['$f/NotoSansArabic.ttf']);
     await _loadFont('MaterialIcons', [
       '${Platform.environment['FLUTTER_ROOT']}/bin/cache/artifacts/material_fonts/MaterialIcons-Regular.otf',
     ]);
@@ -174,7 +170,7 @@ void main() {
   });
   testWidgets('07 cotisations', (t) async {
     await _pump(t, member: true, versements: versements);
-    await t.tap(find.text('Cotisations'));
+    await t.tap(findTab('Cotisations'));
     await t.pumpAndSettle();
     await _shot(t, '07-cotisations-fr');
   });
@@ -190,7 +186,7 @@ void main() {
   });
   testWidgets('10 barkelu vide', (t) async {
     await _pump(t);
-    await t.tap(find.byIcon(Icons.shopping_bag_outlined));
+    await t.tap(findTab('Barkelu'));
     await t.pumpAndSettle();
     await _shot(t, '10-barkelu-vide-fr');
   });

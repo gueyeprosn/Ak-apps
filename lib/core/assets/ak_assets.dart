@@ -1,5 +1,6 @@
 abstract final class AkAssets {
   static const logo = 'assets/images/logo.png';
+  static const logoOfficiel = 'assets/branding/ahloul_logo_officiel.png';
   static const toubaHero = 'assets/images/official/touba-hero.webp';
   static const toubaVision = 'assets/images/official/touba-vision.webp';
   static const gallery = [

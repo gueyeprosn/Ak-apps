@@ -9,6 +9,88 @@ class AppLocalizationsFr extends AppLocalizations {
   AppLocalizationsFr([String locale = 'fr']) : super(locale);
 
   @override
+  String get aboutTitle => 'Qui sommes-nous ?';
+
+  @override
+  String get aboutHeroTitle => 'Servir ensemble';
+
+  @override
+  String get aboutHeroBody =>
+      'Une communauté engagée pour Touba et la Mouridiyah.';
+
+  @override
+  String get aboutMissionTitle => 'Notre raison d’être';
+
+  @override
+  String get aboutMissionBody =>
+      'Ahloul Khidmah rassemble des personnes qui souhaitent mettre leur temps, leurs compétences et leurs ressources au service de la communauté. Notre démarche associe le savoir, le travail et la solidarité pour faire avancer des projets utiles dans la durée.';
+
+  @override
+  String get aboutPillarsTitle => 'Du service à l’action';
+
+  @override
+  String get aboutMobilize => 'Mobiliser';
+
+  @override
+  String get aboutMobilizeBody =>
+      'Rassembler celles et ceux qui souhaitent contribuer.';
+
+  @override
+  String get aboutOrganize => 'Organiser';
+
+  @override
+  String get aboutOrganizeBody =>
+      'Coordonner les compétences et les initiatives.';
+
+  @override
+  String get aboutFund => 'Financer';
+
+  @override
+  String get aboutFundBody => 'Réunir les moyens nécessaires aux projets.';
+
+  @override
+  String get aboutImpact => 'Agir durablement';
+
+  @override
+  String get aboutImpactBody => 'Soutenir des actions utiles à la communauté.';
+
+  @override
+  String get aboutContacts => 'Nous contacter';
+
+  @override
+  String get aboutLocation => 'Touba, Sénégal';
+
+  @override
+  String get aboutEmail => 'Courriel';
+
+  @override
+  String get aboutReadOfficial => 'Lire la présentation officielle';
+
+  @override
+  String get aboutWhatsApp => 'Contacter sur WhatsApp';
+
+  @override
+  String get cardDetails => 'Détails de la carte';
+
+  @override
+  String get contributionsLabel => 'Cotisations';
+
+  @override
+  String get mediaLabel => 'Médiathèque';
+
+  @override
+  String get assalamuAlaykum => 'Salam alaykoum';
+
+  @override
+  String get welcomeTitle => 'Bienvenue sur Ahloul Khidmah';
+
+  @override
+  String get shopSubtitle => 'La boutique solidaire Ahloul Khidmah';
+
+  @override
+  String get shopAll => 'Tous les produits';
+
+  @override
   String get loginTitle => 'Espace membre';
 
   @override

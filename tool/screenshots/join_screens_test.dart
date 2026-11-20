@@ -80,9 +80,8 @@ Future<void> _scrollDown(WidgetTester t) async {
 void main() {
   setUpAll(() async {
     const f = 'assets/fonts';
-    await _loadFont('Cairo',
-        ['$f/Cairo-Regular.ttf', '$f/Cairo-Medium.ttf', '$f/Cairo-SemiBold.ttf', '$f/Cairo-Bold.ttf']);
-    await _loadFont('Amiri', ['$f/Amiri-Regular.ttf', '$f/Amiri-Bold.ttf']);
+    await _loadFont('Plus Jakarta Sans', ['$f/PlusJakartaSans.ttf']);
+    await _loadFont('Noto Sans Arabic', ['$f/NotoSansArabic.ttf']);
     await _loadFont('MaterialIcons', [
       '${Platform.environment['FLUTTER_ROOT']}/bin/cache/artifacts/material_fonts/MaterialIcons-Regular.otf',
     ]);

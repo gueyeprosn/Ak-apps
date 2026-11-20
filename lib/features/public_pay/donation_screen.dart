@@ -81,7 +81,9 @@ class _DonationFormState extends ConsumerState<_DonationForm> {
     if (auth is AuthLoggedIn) {
       _prenoms.text = auth.member.prenoms;
       _nom.text = auth.member.nom;
-      final raw = auth.member.whatsapp.isNotEmpty ? auth.member.whatsapp : auth.member.tel;
+      final raw = auth.member.whatsapp.isNotEmpty
+          ? auth.member.whatsapp
+          : auth.member.tel;
       if (raw.isNotEmpty) {
         final split = splitE164(raw);
         _country = split.country;
@@ -98,7 +100,9 @@ class _DonationFormState extends ConsumerState<_DonationForm> {
     super.dispose();
   }
 
-  int? get _amount => _montant == 'autre' ? parseOtherAmount(_other.text) : int.tryParse(_montant);
+  int? get _amount => _montant == 'autre'
+      ? parseOtherAmount(_other.text)
+      : int.tryParse(_montant);
 
   void _submit() {
     final l = AppLocalizations.of(context);
@@ -107,7 +111,8 @@ class _DonationFormState extends ConsumerState<_DonationForm> {
     String tel = '';
     if (!_anonymous) {
       if (_prenoms.text.trim().length < 2) {
-        errors['prenoms'] = _prenoms.text.trim().isEmpty ? l.errRequired : l.errTooShort;
+        errors['prenoms'] =
+            _prenoms.text.trim().isEmpty ? l.errRequired : l.errTooShort;
       }
       final phone = validatePhone(_country, _tel.text);
       if (phone.isOk) {
@@ -116,7 +121,8 @@ class _DonationFormState extends ConsumerState<_DonationForm> {
         errors['tel'] = phoneProblemMessage(l, phone.problem!);
       }
       final email = _email.text.trim();
-      if (email.isNotEmpty && !RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(email)) {
+      if (email.isNotEmpty &&
+          !RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(email)) {
         errors['email'] = l.errEmail;
       }
     }
@@ -137,7 +143,8 @@ class _DonationFormState extends ConsumerState<_DonationForm> {
           DonationDraft(
             anonymous: _anonymous,
             montant: _montant,
-            montantAutre: _montant == 'autre' ? otherAmountDigits(_other.text) : '',
+            montantAutre:
+                _montant == 'autre' ? otherAmountDigits(_other.text) : '',
             campagne: _campagne,
             prenoms: _anonymous ? '' : _prenoms.text,
             nom: _anonymous ? '' : _nom.text,
@@ -170,7 +177,6 @@ class _DonationFormState extends ConsumerState<_DonationForm> {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     final lang = Localizations.localeOf(context).languageCode;
-    final p = context.ak;
     final s = ref.watch(donationPayProvider);
     final amount = _amount;
     return Column(
@@ -186,104 +192,115 @@ class _DonationFormState extends ConsumerState<_DonationForm> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                AkHeading(title: l.donateAmountTitle, section: true),
-                const SizedBox(height: AkSpace.space3),
-                AmountChoice(
-                  key: _keys['other'],
-                  values: donationAmounts,
-                  selected: _montant,
-                  onSelected: (v) => setState(() => _montant = v),
-                  otherController: _other,
-                  errorText: _errors['other'],
+                PublicPaySection(
+                  title: l.donateAmountTitle,
+                  icon: Icons.payments_outlined,
+                  children: [
+                    AmountChoice(
+                      key: _keys['other'],
+                      values: donationAmounts,
+                      selected: _montant,
+                      onSelected: (v) => setState(() => _montant = v),
+                      otherController: _other,
+                      errorText: _errors['other'],
+                    ),
+                  ],
                 ),
-                const SizedBox(height: AkSpace.space6),
-                AkHeading(title: l.donateCampaign, section: true),
-                const SizedBox(height: AkSpace.space3),
-                for (final c in donationCampaigns) ...[
-                  AkChoiceTile(
-                    key: Key('campaign-$c'),
-                    title: _campaignLabel(l, c),
-                    selected: _campagne == c,
-                    onTap: () => setState(() => _campagne = c),
-                  ),
-                  const SizedBox(height: AkSpace.space2),
-                ],
                 const SizedBox(height: AkSpace.space4),
-                AkHeading(title: l.donateIdentityTitle, section: true),
-                Text(
-                  l.donateIdentitySubtitle,
-                  style: AkText.bodySm.copyWith(color: p.inkSoft),
+                PublicPaySection(
+                  title: l.donateCampaign,
+                  icon: Icons.favorite_border,
+                  children: [
+                    for (final c in donationCampaigns) ...[
+                      AkChoiceTile(
+                        key: Key('campaign-$c'),
+                        title: _campaignLabel(l, c),
+                        selected: _campagne == c,
+                        onTap: () => setState(() => _campagne = c),
+                      ),
+                      if (c != donationCampaigns.last)
+                        const SizedBox(height: AkSpace.space2),
+                    ],
+                  ],
                 ),
-                SwitchListTile(
-                  key: const Key('donate-anonymous'),
-                  contentPadding: EdgeInsets.zero,
-                  title: Text(l.donateAnonymous, style: AkText.body),
-                  value: _anonymous,
-                  onChanged: (v) => setState(() {
-                    _anonymous = v;
-                    _errors = const {};
-                  }),
-                ),
-                if (!_anonymous) ...[
-                  const SizedBox(height: AkSpace.space2),
-                  AkTextField(
-                    key: _keys['prenoms'],
-                    fieldKey: const Key('donate-prenoms'),
-                    label: l.fieldFirstNames,
-                    controller: _prenoms,
-                    textCapitalization: TextCapitalization.words,
-                    textDirection: Directionality.of(context),
-                    textInputAction: TextInputAction.next,
-                    errorText: _errors['prenoms'],
-                    maxLength: 120,
-                  ),
-                  const SizedBox(height: AkSpace.space3),
-                  AkTextField(
-                    fieldKey: const Key('donate-nom'),
-                    label: l.fieldLastName,
-                    controller: _nom,
-                    textCapitalization: TextCapitalization.words,
-                    textDirection: Directionality.of(context),
-                    textInputAction: TextInputAction.next,
-                    maxLength: 80,
-                  ),
-                  const SizedBox(height: AkSpace.space3),
-                  AkPhoneField(
-                    key: _keys['tel'],
-                    fieldKey: const Key('donate-tel'),
-                    label: l.fieldPhoneWhatsapp,
-                    controller: _tel,
-                    country: _country,
-                    onCountryChanged: (c) => setState(() => _country = c),
-                    errorText: _errors['tel'],
-                  ),
-                  const SizedBox(height: AkSpace.space3),
-                  AkTextField(
-                    key: _keys['email'],
-                    fieldKey: const Key('donate-email'),
-                    label: l.fieldEmailOptional,
-                    controller: _email,
-                    keyboardType: TextInputType.emailAddress,
-                    errorText: _errors['email'],
-                    maxLength: 160,
-                  ),
-                  const SizedBox(height: AkSpace.space3),
-                  // Transparence : un don avec téléphone peut créer une fiche membre.
-                  AkBanner(
-                    tone: AkTone.info,
-                    icon: Icons.info_outline,
-                    text: l.donateMemberNote,
-                  ),
-                ],
-                const SizedBox(height: AkSpace.space5),
-                AkTextField(
-                  fieldKey: const Key('donate-message'),
-                  label: l.donateMessage,
-                  hint: l.donateMessageHint,
-                  controller: _message,
-                  textDirection: Directionality.of(context),
-                  maxLines: 4,
-                  maxLength: 500,
+                const SizedBox(height: AkSpace.space4),
+                PublicPaySection(
+                  title: l.donateIdentityTitle,
+                  subtitle: l.donateIdentitySubtitle,
+                  icon: Icons.person_outline,
+                  children: [
+                    SwitchListTile(
+                      key: const Key('donate-anonymous'),
+                      contentPadding: EdgeInsets.zero,
+                      title: Text(l.donateAnonymous, style: AkText.body),
+                      value: _anonymous,
+                      onChanged: (v) => setState(() {
+                        _anonymous = v;
+                        _errors = const {};
+                      }),
+                    ),
+                    if (!_anonymous) ...[
+                      const SizedBox(height: AkSpace.space2),
+                      AkTextField(
+                        key: _keys['prenoms'],
+                        fieldKey: const Key('donate-prenoms'),
+                        label: l.fieldFirstNames,
+                        controller: _prenoms,
+                        textCapitalization: TextCapitalization.words,
+                        textDirection: Directionality.of(context),
+                        textInputAction: TextInputAction.next,
+                        errorText: _errors['prenoms'],
+                        maxLength: 120,
+                      ),
+                      const SizedBox(height: AkSpace.space3),
+                      AkTextField(
+                        fieldKey: const Key('donate-nom'),
+                        label: l.fieldLastName,
+                        controller: _nom,
+                        textCapitalization: TextCapitalization.words,
+                        textDirection: Directionality.of(context),
+                        textInputAction: TextInputAction.next,
+                        maxLength: 80,
+                      ),
+                      const SizedBox(height: AkSpace.space3),
+                      AkPhoneField(
+                        key: _keys['tel'],
+                        fieldKey: const Key('donate-tel'),
+                        label: l.fieldPhoneWhatsapp,
+                        controller: _tel,
+                        country: _country,
+                        onCountryChanged: (c) => setState(() => _country = c),
+                        errorText: _errors['tel'],
+                      ),
+                      const SizedBox(height: AkSpace.space3),
+                      AkTextField(
+                        key: _keys['email'],
+                        fieldKey: const Key('donate-email'),
+                        label: l.fieldEmailOptional,
+                        controller: _email,
+                        keyboardType: TextInputType.emailAddress,
+                        errorText: _errors['email'],
+                        maxLength: 160,
+                      ),
+                      const SizedBox(height: AkSpace.space3),
+                      // Transparence : un don avec téléphone peut créer une fiche membre.
+                      AkBanner(
+                        tone: AkTone.info,
+                        icon: Icons.info_outline,
+                        text: l.donateMemberNote,
+                      ),
+                    ],
+                    const SizedBox(height: AkSpace.space5),
+                    AkTextField(
+                      fieldKey: const Key('donate-message'),
+                      label: l.donateMessage,
+                      hint: l.donateMessageHint,
+                      controller: _message,
+                      textDirection: Directionality.of(context),
+                      maxLines: 4,
+                      maxLength: 500,
+                    ),
+                  ],
                 ),
               ],
             ),
