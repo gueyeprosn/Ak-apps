@@ -1,0 +1,316 @@
+{
+  "@@locale": "ar",
+  "loginTitle": "مساحة الأعضاء",
+  "loginSubtitle": "سجلوا دخولكم برقم هاتفكم ورمز PIN.",
+  "phoneLabel": "رقم الهاتف",
+  "phoneHint": "77 123 45 67",
+  "pinLabel": "رمز PIN (٤ أرقام)",
+  "loginButton": "تسجيل الدخول",
+  "invalidCredentials": "بيانات الدخول غير صحيحة. تحققوا من رقمكم ورمزكم.",
+  "tooManyAttempts": "محاولات كثيرة. حاولوا بعد {minutes} دقيقة.",
+  "@tooManyAttempts": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "networkError": "تعذّر الاتصال. تحققوا من الشبكة وأعيدوا المحاولة.",
+  "genericError": "حدث خطأ. بياناتكم في أمان.",
+  "sessionExpired": "انتهت الجلسة، سجلوا دخولكم من جديد.",
+  "pinSetupTitle": "أنشئوا رمز PIN الخاص بكم",
+  "pinSetupBody": "عند أول دخول، اختاروا ٤ أرقام لا يعرفها غيركم. لا تشاركوها مع أحد، حتى مع مسؤول.",
+  "newPinLabel": "الرمز الجديد",
+  "confirmPinLabel": "أكدوا الرمز",
+  "pinMismatch": "الرمزان غير متطابقين.",
+  "pinSave": "حفظ والمتابعة",
+  "homeGreeting": "السلام عليكم، {name}",
+  "@homeGreeting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "heroTitle": "معاً نخدم المريدية",
+  "heroSubtitle": "الإيمان · الانضباط · العلم · التميز",
+  "dueCardTitle": "اشتراك {month}",
+  "@dueCardTitle": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "statusUpToDate": "مسدَّد",
+  "statusPending": "قيد الانتظار",
+  "statusDue": "مستحق",
+  "actionPay": "ادفع اشتراكي",
+  "actionCard": "بطاقة العضوية",
+  "actionContribute": "مساهمة",
+  "actionBarkelu": "Barkelu",
+  "comingSoon": "قريباً",
+  "versementsTitle": "مدفوعاتي",
+  "noVersements": "لا توجد مدفوعات بعد",
+  "noVersementsBody": "لا توجد دفعات متاحة لهذا الحساب في التطبيق. يمكنك الاطلاع على سجل الدفعات الكامل على الموقع.",
+  "paidLabel": "مسدَّد",
+  "accountTitle": "حسابي",
+  "memberActive": "عضو نشط",
+  "languageLabel": "اللغة",
+  "appearanceLabel": "المظهر",
+  "themeSystem": "حسب النظام",
+  "themeLight": "فاتح",
+  "themeDark": "داكن",
+  "langSystem": "حسب النظام",
+  "logoutButton": "تسجيل الخروج",
+  "versionLabel": "الإصدار {v}",
+  "@versionLabel": {
+    "placeholders": {
+      "v": {
+        "type": "String"
+      }
+    }
+  },
+  "barkeluSoonBody": "متجر Barkelu يجهّز أولى منتجاته. عودوا قريباً.",
+  "maintenanceTitle": "الصيانة جارية",
+  "maintenanceBody": "ستعود الخدمة خلال دقائق. شكراً لصبركم.",
+  "retryButton": "أعيدوا المحاولة",
+  "updateRequiredTitle": "تحديث ضروري",
+  "updateRequiredBody": "لم يعد هذا الإصدار من التطبيق مدعوماً. حدّثوه للمتابعة.",
+  "updateButton": "تحديث",
+  "offlineTitle": "أنتم غير متصلين بالإنترنت",
+  "offlineBody": "اتصلوا بالإنترنت للمتابعة.",
+  "unknownScreenTitle": "هذا القسم يتطلب تحديثاً",
+  "unknownScreenBody": "حدّثوا التطبيق للوصول إليه.",
+  "loginRequiredTitle": "تسجيل الدخول مطلوب",
+  "loginRequiredBody": "سجلوا دخولكم للوصول إلى هذا القسم.",
+  "loading": "جارٍ التحميل…",
+  "firstLoginLink": "أول مرة تسجلون الدخول؟",
+  "firstLoginLabel": "آخر ٤ أحرف من رقم عضويتكم",
+  "firstLoginHelp": "تجدونها على بطاقة العضوية وفي رسالة واتساب المستلمة عند الانضمام.",
+  "havePinLink": "لدي رمز PIN",
+  "firstLoginContinue": "متابعة",
+  "payTitle": "دفع الاشتراك",
+  "payChooseIntro": "اختاروا عدد الأشهر المراد دفعها. تُدفع الأشهر الأحدث أولاً.",
+  "payMonthsMinus": "إنقاص شهر",
+  "payMonthsPlus": "إضافة شهر",
+  "payMonthsLabel": "عدد الأشهر",
+  "payMonthLate": "متأخر",
+  "payMonthCurrent": "الشهر الحالي",
+  "payTotalLabel": "المجموع",
+  "payContinue": "متابعة",
+  "payMethodTitle": "وسيلة الدفع",
+  "payMethodWave": "Wave",
+  "payMethodWaveSub": "تأكيد عبر تطبيق Wave",
+  "payMethodOrange": "Orange Money",
+  "payMethodOrangeSub": "تأكيد عبر تطبيق Orange",
+  "payMethodCard": "بطاقة بنكية",
+  "payMethodCardSub": "صفحة دفع آمنة",
+  "payPhoneLabel": "الرقم المراد الخصم منه",
+  "payPhoneRequired": "أدخلوا الرقم المراد الخصم منه.",
+  "payWithMethod": "ادفع عبر {method}",
+  "@payWithMethod": {
+    "placeholders": {
+      "method": {
+        "type": "String"
+      }
+    }
+  },
+  "payWaitingTitle": "في انتظار التأكيد",
+  "payWaitingBody": "أكدوا الدفع في {method}. لا تغلقوا التطبيق: ننتظر التأكيد.",
+  "@payWaitingBody": {
+    "placeholders": {
+      "method": {
+        "type": "String"
+      }
+    }
+  },
+  "payNotYetPaidTitle": "لم يتم الدفع بعد",
+  "payNotYetPaidBody": "لن يُسجَّل اشتراككم إلا بعد تأكيد الدفع.",
+  "payReopenButton": "فتح مرة أخرى",
+  "payChangeMethod": "تغيير وسيلة الدفع",
+  "payDoneTitle": "تم تأكيد الدفع",
+  "payDoneBody": "شكراً. تم تسجيل اشتراككم ({months}): {amount}.",
+  "@payDoneBody": {
+    "placeholders": {
+      "months": {
+        "type": "String"
+      },
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "payReceipt": "عرض إيصالي",
+  "payFinish": "إنهاء",
+  "payFailedTitle": "لم يكتمل الدفع",
+  "payFailedBody": "تم إلغاء الدفع أو رفضه. لم يُسجَّل أي مبلغ.",
+  "payRetry": "أعيدوا المحاولة",
+  "payTimeoutTitle": "لم يصل التأكيد بعد",
+  "payTimeoutBody": "إذا دفعتم، فقد يستغرق التأكيد بضع دقائق. سيتم تحديث اشتراككم فور وصوله.",
+  "payCheckNow": "تحقق الآن",
+  "payCheckLater": "تحقق لاحقاً",
+  "payUnavailableTitle": "الدفع غير متاح",
+  "payUnavailableBody": "الدفع عبر الإنترنت غير متاح حالياً. حاولوا لاحقاً.",
+  "payUpToDateTitle": "اشتراككم مسدَّد",
+  "payUpToDateBody": "لا يوجد اشتراك للدفع حالياً.",
+  "payOpenFailed": "تعذّر فتح تطبيق الدفع. اختاروا البطاقة البنكية أو أعيدوا المحاولة.",
+  "payChangeMonths": "تعديل عدد الأشهر",
+  "cardTitle": "بطاقة العضوية",
+  "cardHint": "اعرضوا رمز QR للتحقق من بطاقتكم.",
+  "cardShare": "مشاركة",
+  "cardShareFailed": "تعذّرت المشاركة. أعيدوا المحاولة.",
+  "cardStaleBanner": "غير متصل: النسخة المحفوظة بتاريخ {date}.",
+  "@cardStaleBanner": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "cardUnavailableTitle": "البطاقة غير متاحة",
+  "cardUnavailableBody": "بطاقتكم غير متاحة حالياً.",
+  "cardLoadFailedBody": "تعذّر تحميل البطاقة. تحققوا من الشبكة وأعيدوا المحاولة.",
+  "cardImageLabel": "بطاقة العضوية الخاصة بـ {name}",
+  "@cardImageLabel": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "joinTitle": "الانضمام عضواً",
+  "joinIntro": "انضموا إلى أهل الخدمة ببضع نقرات: الاسم والهاتف والبلد والمبلغ، ثم الدفع أونلاين.",
+  "joinIdentityTitle": "تعرّفوا على أنفسكم",
+  "joinAmountTitle": "اختيار المبلغ",
+  "joinAmountSubtitle": "الاشتراك الشهري",
+  "joinNotMemberYet": "تصبحون أعضاء فقط بعد تأكيد الدفع.",
+  "joinSubmit": "انضم",
+  "joinNotYetPaidBody": "سيُسجَّل انضمامكم فقط عند تأكيد الدفع.",
+  "joinEditInfo": "تعديل معلوماتي",
+  "joinDoneTitle": "تم تأكيد الدفع",
+  "joinDoneBody": "شكراً، تم تسجيل انضمامكم ({amount}). تُرسل بطاقة العضوية إلى واتساب على الرقم المذكور.",
+  "@joinDoneBody": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "joinDoneLogin": "بعد ذلك، سجلوا دخولكم إلى التطبيق: «أول مرة تسجلون الدخول؟» تطلب آخر ٤ أحرف من رقم بطاقتكم.",
+  "joinDuplicate": "هذا الرقم مسجَّل من قبل. سجلوا دخولكم بحساب العضوية.",
+  "joinHaveAccount": "عضو بالفعل؟ تسجيل الدخول",
+  "joinLink": "لستم أعضاء بعد؟ انضموا",
+  "fieldLastName": "الاسم العائلي",
+  "fieldFirstNames": "الاسم الشخصي",
+  "fieldPhoneWhatsapp": "الهاتف / واتساب",
+  "fieldDial": "رمز الاتصال",
+  "fieldPhoneFull": "الرقم كاملاً مع رمز الدولة",
+  "fieldCountryRegion": "البلد أو المنطقة",
+  "fieldCountryRegionHint": "مثال: السنغال، فرنسا، طوبى، داكار…",
+  "fieldEmailOptional": "البريد (اختياري)",
+  "fieldAmountOther": "المبلغ بالفرنك الأفريقي",
+  "amountPerMonth": "شهرياً",
+  "amountOther": "مبلغ آخر",
+  "errRequired": "هذا الحقل مطلوب.",
+  "errTooShort": "حرفان على الأقل.",
+  "errPhoneShort": "الرقم ناقص.",
+  "errPhoneLong": "الرقم أطول من المطلوب.",
+  "errPhoneSenegal": "رقم سنغالي غير صحيح: 9 أرقام تبدأ بـ 70 أو 75 أو 76 أو 77 أو 78.",
+  "errEmail": "بريد إلكتروني غير صحيح.",
+  "errAmountMin": "الحد الأدنى للمبلغ: {amount}.",
+  "@errAmountMin": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "errAmountMissing": "حدّدوا المبلغ.",
+  "errServerInvalid": "بعض المعلومات غير مقبولة. راجعوا الاستمارة.",
+  "donateIdentityTitle": "بياناتكم",
+  "donateIdentitySubtitle": "اختياري إن بقيتم مجهولين",
+  "donateAnonymous": "أرغب في البقاء مجهولاً",
+  "donateMemberNote": "إن ذكرتم هاتفكم، قد تُنشأ لكم بطاقة عضوية (دون اشتراك شهري) انطلاقاً من مساهمتكم.",
+  "donateAmountTitle": "المبلغ",
+  "donateCampaign": "الوجهة",
+  "campaignGeneral": "دعم عام",
+  "campaignTouba": "مشاريع في طوبى",
+  "campaignMagal": "Magal / المناسبات الكبرى",
+  "campaignEducation": "التعليم والكفاءات",
+  "campaignOther": "أخرى",
+  "donateMessage": "رسالة (اختياري)",
+  "donateMessageHint": "نية أو إهداء أو كلمة للفريق.",
+  "donateSubmit": "المتابعة إلى الدفع",
+  "donateNotYetPaidBody": "ستُسجَّل مساهمتكم فقط عند تأكيد الدفع.",
+  "donateDoneTitle": "شكراً لدعمكم",
+  "donateDoneBody": "تم تأكيد مساهمتكم بمبلغ {amount}.",
+  "@donateDoneBody": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "donateEditInfo": "تعديل مساهمتي",
+  "publicTimeoutBody": "إن كنتم قد دفعتم، فقد يستغرق التأكيد بضع دقائق. لا يُسجَّل شيء قبل وصوله.",
+  "waveManualTitle": "تم تسجيل الانضمام، والدفع ما زال مطلوباً",
+  "waveManualBody": "الدفع أونلاين غير متاح. أرسلوا {amount} عبر Wave إلى الرقم {number} مع ذكر المرجع {reference}.",
+  "@waveManualBody": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "number": {
+        "type": "String"
+      },
+      "reference": {
+        "type": "String"
+      }
+    }
+  },
+  "waveManualNotPaid": "لم يصل دفعكم بعد: هذا الانضمام غير مدفوع.",
+  "homeJoin": "الانضمام عضواً",
+  "homeContribute": "تبرّع",
+  "officialPageError": "تعذّر فتح الرابط. حاول مجددًا.",
+  "mediaOpen": "تصفّح مكتبة الوسائط",
+  "shopOpenWeb": "افتح المتجر",
+  "shopWebCheckout": "اطّلع على الخيارات وسلّة التسوّق والتوصيل في المتجر الرسمي.",
+  "accountAccessHeading": "الوصول إلى الحساب",
+  "accountWebHint": "سجّل الدخول إلى حساب العضو على الموقع لإدارة رمز PIN.",
+  "accountOpenWeb": "افتح حسابي على الموقع",
+  "accountForgotPin": "هل نسيت رمز PIN؟",
+  "accountRecoveryHint": "تواصل مع فريق أهل الخدمة إذا تعذّر تسجيل الدخول. حافظ على سرية رمز PIN.",
+  "accountContactSupport": "تواصل مع الفريق عبر واتساب",
+  "pushUpdateError": "تعذّر تحديث الإشعارات. حاول مجددًا.",
+  "pushSettingTitle": "الإشعارات",
+  "pushSettingSubtitle": "تلقّي تذكيرات الاشتراك وإعلانات الجمعية.",
+  "pushDenied": "الإشعارات مرفوضة. فعّلها من إعدادات الهاتف.",
+  "pushOpen": "فتح",
+  "cardMobileUnavailable": "البطاقة غير متاحة في التطبيق حاليًا. يمكنك الاطلاع على حساب العضو على الموقع.",
+  "payMobileUnavailable": "دفع الاشتراكات غير متاح في التطبيق حاليًا. افتح حساب العضو على الموقع للمتابعة.",
+  "historyOpenWeb": "عرض سجل الدفعات الكامل على الموقع",
+  "onboardingMission": "معًا في خدمة المريدية",
+  "onboardingMissionBody": "يجمع أهل الخدمة الكفاءات والمواهب لخدمة طوبى.",
+  "onboardingCommunity": "مجتمع ملتزم",
+  "onboardingCommunityBody": "انضمّ إلى خلية محلية أو ادعم أعمال المجتمع بالتبرع.",
+  "onboardingServices": "فضاء العضو",
+  "onboardingServicesBody": "اعرض بطاقة عضويتك وتابع اشتراكاتك وتعرّف على Barkelu.",
+  "onboardingStep": "الخطوة {current} من {total}",
+  "onboardingStart": "ابدأ",
+  "onboardingNext": "متابعة",
+  "onboardingBack": "رجوع",
+  "onboardingSkip": "تخطّي",
+  "galleryOpen": "استكشف الصور",
+  "galleryTitle": "صور الخدمة",
+  "galleryPhoto0": "المسجد الكبير في طوبى من الجو",
+  "galleryPhoto1": "طوبى من الجو",
+  "galleryPhoto2": "المجتمع والخدمة في طوبى",
+  "galleryPhoto3": "مشهد من مجتمع أهل الخدمة",
+  "galleryPhoto4": "الالتزام والخدمة",
+  "galleryPhoto5": "الثقافة المريدية",
+  "galleryPhoto6": "إرث الشيخ أحمد بمبا",
+  "cardFullScreen": "تكبير البطاقة",
+  "shopSearch": "ابحث عن منتج",
+  "shopNoMatches": "لا توجد منتجات مطابقة لهذا البحث."
+}

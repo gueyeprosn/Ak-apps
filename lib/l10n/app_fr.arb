@@ -1,0 +1,326 @@
+{
+  "@@locale": "fr",
+  "loginTitle": "Espace membre",
+  "loginSubtitle": "Connectez-vous avec votre téléphone et votre code PIN.",
+  "phoneLabel": "Numéro de téléphone",
+  "phoneHint": "77 123 45 67",
+  "pinLabel": "Code PIN (4 chiffres)",
+  "loginButton": "Se connecter",
+  "invalidCredentials": "Identifiants incorrects. Vérifiez votre numéro et votre code.",
+  "tooManyAttempts": "Trop de tentatives. Réessayez dans {minutes} min.",
+  "@tooManyAttempts": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "networkError": "Connexion impossible. Vérifiez votre réseau et réessayez.",
+  "genericError": "Une erreur est survenue. Vos données sont en sécurité.",
+  "sessionExpired": "Session expirée, reconnectez-vous.",
+  "pinSetupTitle": "Créez votre code PIN",
+  "pinSetupBody": "Première connexion : choisissez 4 chiffres que vous seul connaissez. Ne le partagez pas, même avec un responsable.",
+  "newPinLabel": "Nouveau code",
+  "confirmPinLabel": "Confirmez le code",
+  "pinMismatch": "Les deux codes ne correspondent pas.",
+  "pinSave": "Enregistrer et continuer",
+  "homeGreeting": "Salam, {name}",
+  "@homeGreeting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "heroTitle": "Ensemble, servons la Mouridiyah",
+  "heroSubtitle": "Foi · Discipline · Savoir · Excellence",
+  "dueCardTitle": "Cotisation de {month}",
+  "@dueCardTitle": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "statusUpToDate": "À jour",
+  "statusPending": "En attente",
+  "statusDue": "À régler",
+  "actionPay": "Payer ma cotisation",
+  "actionCard": "Ma carte membre",
+  "actionContribute": "Contribuer",
+  "actionBarkelu": "Barkelu",
+  "comingSoon": "Bientôt disponible",
+  "versementsTitle": "Mes versements",
+  "noVersements": "Aucun versement",
+  "noVersementsBody": "Aucun versement n’est disponible dans l’application pour ce compte. Tu peux consulter ton historique complet sur le site.",
+  "paidLabel": "Payé",
+  "accountTitle": "Mon compte",
+  "memberActive": "Membre actif",
+  "languageLabel": "Langue",
+  "appearanceLabel": "Apparence",
+  "themeSystem": "Système",
+  "themeLight": "Clair",
+  "themeDark": "Sombre",
+  "langSystem": "Système",
+  "logoutButton": "Se déconnecter",
+  "versionLabel": "Version {v}",
+  "@versionLabel": {
+    "placeholders": {
+      "v": {
+        "type": "String"
+      }
+    }
+  },
+  "barkeluSoonBody": "La boutique Barkelu prépare ses premiers articles. Revenez bientôt.",
+  "maintenanceTitle": "Maintenance en cours",
+  "maintenanceBody": "Le service reprendra dans quelques minutes. Merci de votre patience.",
+  "retryButton": "Réessayer",
+  "updateRequiredTitle": "Mise à jour nécessaire",
+  "updateRequiredBody": "Cette version de l'application n'est plus prise en charge. Mettez-la à jour pour continuer.",
+  "updateButton": "Mettre à jour",
+  "offlineTitle": "Vous êtes hors ligne",
+  "offlineBody": "Reconnectez-vous pour continuer.",
+  "unknownScreenTitle": "Cette rubrique nécessite une mise à jour",
+  "unknownScreenBody": "Mettez à jour l'application pour y accéder.",
+  "loginRequiredTitle": "Connexion requise",
+  "loginRequiredBody": "Connectez-vous pour accéder à cette rubrique.",
+  "loading": "Chargement…",
+  "firstLoginLink": "Première connexion ?",
+  "firstLoginLabel": "4 derniers caractères de votre N° de membre",
+  "firstLoginHelp": "Ils figurent sur votre carte membre et dans le message WhatsApp reçu à l'adhésion.",
+  "havePinLink": "J'ai déjà un code PIN",
+  "firstLoginContinue": "Continuer",
+  "payTitle": "Payer ma cotisation",
+  "payChooseIntro": "Choisissez le nombre de mois à régler. Les mois les plus récents sont réglés en premier.",
+  "payMonthsMinus": "Retirer un mois",
+  "payMonthsPlus": "Ajouter un mois",
+  "payMonthsLabel": "Nombre de mois",
+  "payMonthLate": "En retard",
+  "payMonthCurrent": "Mois en cours",
+  "payTotalLabel": "Total",
+  "payContinue": "Continuer",
+  "payMethodTitle": "Moyen de paiement",
+  "payMethodWave": "Wave",
+  "payMethodWaveSub": "Validation dans l'application Wave",
+  "payMethodOrange": "Orange Money",
+  "payMethodOrangeSub": "Validation dans l'application Orange",
+  "payMethodCard": "Carte bancaire",
+  "payMethodCardSub": "Page de paiement sécurisée",
+  "payPhoneLabel": "Numéro à débiter",
+  "payPhoneRequired": "Saisissez le numéro à débiter.",
+  "payWithMethod": "Payer avec {method}",
+  "@payWithMethod": {
+    "placeholders": {
+      "method": {
+        "type": "String"
+      }
+    }
+  },
+  "payWaitingTitle": "En attente de confirmation",
+  "payWaitingBody": "Validez le paiement dans {method}. Ne fermez pas l'application : nous attendons la confirmation.",
+  "@payWaitingBody": {
+    "placeholders": {
+      "method": {
+        "type": "String"
+      }
+    }
+  },
+  "payNotYetPaidTitle": "Pas encore payé",
+  "payNotYetPaidBody": "Votre cotisation sera enregistrée uniquement quand le paiement sera confirmé.",
+  "payReopenButton": "Ouvrir à nouveau",
+  "payChangeMethod": "Changer de moyen",
+  "payDoneTitle": "Paiement confirmé",
+  "payDoneBody": "Merci. Votre cotisation ({months}) est enregistrée : {amount}.",
+  "@payDoneBody": {
+    "placeholders": {
+      "months": {
+        "type": "String"
+      },
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "payReceipt": "Voir mon reçu",
+  "payFinish": "Terminer",
+  "payFailedTitle": "Paiement non abouti",
+  "payFailedBody": "Le paiement a été annulé ou refusé. Aucun montant n'a été enregistré.",
+  "payRetry": "Réessayer",
+  "payTimeoutTitle": "Confirmation pas encore reçue",
+  "payTimeoutBody": "Si vous avez payé, la confirmation peut prendre quelques minutes. Votre cotisation sera mise à jour dès qu'elle arrivera.",
+  "payCheckNow": "Vérifier maintenant",
+  "payCheckLater": "Vérifier plus tard",
+  "payUnavailableTitle": "Paiement indisponible",
+  "payUnavailableBody": "Le paiement en ligne n'est pas disponible pour le moment. Réessayez plus tard.",
+  "payUpToDateTitle": "Vous êtes à jour",
+  "payUpToDateBody": "Aucune cotisation à régler pour le moment.",
+  "payOpenFailed": "Impossible d'ouvrir l'application de paiement. Choisissez la carte bancaire ou réessayez.",
+  "payChangeMonths": "Modifier le nombre de mois",
+  "cardTitle": "Ma carte membre",
+  "cardHint": "Présentez ce QR code pour faire valider votre carte.",
+  "cardShare": "Partager",
+  "cardShareFailed": "Le partage a échoué. Réessayez.",
+  "cardStaleBanner": "Hors ligne : version enregistrée le {date}.",
+  "@cardStaleBanner": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "cardUnavailableTitle": "Carte indisponible",
+  "cardUnavailableBody": "Votre carte n'est pas disponible pour le moment.",
+  "cardLoadFailedBody": "Impossible de charger la carte. Vérifiez votre réseau et réessayez.",
+  "cardImageLabel": "Carte membre de {name}",
+  "@cardImageLabel": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "joinTitle": "Devenir membre",
+  "joinIntro": "Rejoignez Ahloul Khidmah en quelques clics : nom, prénom, téléphone, pays et montant, puis payez en ligne.",
+  "joinIdentityTitle": "Vous identifier",
+  "joinAmountTitle": "Choisir votre montant",
+  "joinAmountSubtitle": "Cotisation mensuelle",
+  "joinNotMemberYet": "Vous devenez membre uniquement après la confirmation du paiement.",
+  "joinSubmit": "Adhérer",
+  "joinNotYetPaidBody": "Votre adhésion sera enregistrée uniquement quand le paiement sera confirmé.",
+  "joinEditInfo": "Modifier mes informations",
+  "joinDoneTitle": "Paiement confirmé",
+  "joinDoneBody": "Merci, votre adhésion ({amount}) est enregistrée. Votre carte de membre vous est envoyée par WhatsApp au numéro indiqué.",
+  "@joinDoneBody": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "joinDoneLogin": "Ensuite, connectez-vous à l'application : « Première connexion ? » demande les 4 derniers caractères du numéro de votre carte.",
+  "joinDuplicate": "Ce numéro est déjà inscrit. Connectez-vous avec votre compte membre.",
+  "joinHaveAccount": "Déjà membre ? Se connecter",
+  "joinLink": "Pas encore membre ? Adhérer",
+  "fieldLastName": "Nom",
+  "fieldFirstNames": "Prénom(s)",
+  "fieldPhoneWhatsapp": "Téléphone / WhatsApp",
+  "fieldDial": "Indicatif",
+  "fieldPhoneFull": "Numéro complet avec indicatif",
+  "fieldCountryRegion": "Pays ou région",
+  "fieldCountryRegionHint": "Ex : Sénégal, France, Touba, Dakar…",
+  "fieldEmailOptional": "Email (optionnel)",
+  "fieldAmountOther": "Montant en FCFA",
+  "amountPerMonth": "par mois",
+  "amountOther": "Autre montant",
+  "errRequired": "Champ obligatoire.",
+  "errTooShort": "Au moins 2 caractères.",
+  "errPhoneShort": "Numéro incomplet.",
+  "errPhoneLong": "Numéro trop long.",
+  "errPhoneSenegal": "Numéro sénégalais invalide : 9 chiffres commençant par 70, 75, 76, 77 ou 78.",
+  "errEmail": "Email invalide.",
+  "errAmountMin": "Montant minimum : {amount}.",
+  "@errAmountMin": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "errAmountMissing": "Précisez le montant.",
+  "errServerInvalid": "Certaines informations sont refusées. Vérifiez le formulaire.",
+  "donateIdentityTitle": "Vos coordonnées",
+  "donateIdentitySubtitle": "Optionnel si vous restez anonyme",
+  "donateAnonymous": "Je souhaite rester anonyme",
+  "donateMemberNote": "Si vous indiquez votre téléphone, une fiche de membre (sans cotisation mensuelle) peut être créée à partir de votre don.",
+  "donateAmountTitle": "Montant",
+  "donateCampaign": "Destination",
+  "campaignGeneral": "Soutien général",
+  "campaignTouba": "Projets à Touba",
+  "campaignMagal": "Magal / grands événements",
+  "campaignEducation": "Éducation & compétences",
+  "campaignOther": "Autre",
+  "donateMessage": "Message (optionnel)",
+  "donateMessageHint": "Une intention, une dédicace, ou un mot pour l'équipe.",
+  "donateSubmit": "Continuer vers le paiement",
+  "donateNotYetPaidBody": "Votre contribution sera enregistrée uniquement quand le paiement sera confirmé.",
+  "donateDoneTitle": "Merci pour votre soutien",
+  "donateDoneBody": "Votre contribution de {amount} est confirmée.",
+  "@donateDoneBody": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "donateEditInfo": "Modifier ma contribution",
+  "publicTimeoutBody": "Si vous avez payé, la confirmation peut prendre quelques minutes. Rien n'est enregistré tant qu'elle n'est pas reçue.",
+  "waveManualTitle": "Adhésion enregistrée, paiement à faire",
+  "waveManualBody": "Le paiement en ligne est indisponible. Envoyez {amount} par Wave au {number} en indiquant la référence {reference}.",
+  "@waveManualBody": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "number": {
+        "type": "String"
+      },
+      "reference": {
+        "type": "String"
+      }
+    }
+  },
+  "waveManualNotPaid": "Votre paiement n'est pas encore reçu : cette adhésion n'est pas payée.",
+  "homeJoin": "Adhérer",
+  "homeContribute": "Faire un don",
+  "officialPageError": "Impossible d’ouvrir ce lien. Réessayez.",
+  "mediaOpen": "Voir la médiathèque",
+  "shopOpenWeb": "Ouvrir la boutique",
+  "shopWebCheckout": "Consultez les options, le panier et la livraison dans la boutique officielle.",
+  "accountAccessHeading": "Accès au compte",
+  "accountWebHint": "Connectez-vous à votre espace membre sur le site pour gérer votre code PIN.",
+  "accountOpenWeb": "Ouvrir mon espace sur le site",
+  "accountForgotPin": "Code PIN oublié ?",
+  "accountRecoveryHint": "Contactez l’équipe Ahloul Khidmah si vous ne pouvez plus vous connecter. Gardez votre code PIN confidentiel.",
+  "accountContactSupport": "Contacter l’équipe sur WhatsApp",
+  "pushUpdateError": "Impossible de mettre à jour les notifications. Réessayez.",
+  "pushSettingTitle": "Notifications",
+  "pushSettingSubtitle": "Recevoir les rappels de cotisation et les annonces de l'association.",
+  "pushDenied": "Notifications refusées. Activez-les dans les réglages du téléphone.",
+  "pushOpen": "Ouvrir",
+  "cardMobileUnavailable": "La carte n’est pas disponible dans l’application pour le moment. Consulte ton espace membre sur le site.",
+  "payMobileUnavailable": "Le paiement des cotisations n’est pas disponible dans l’application pour le moment. Ouvre ton espace membre sur le site pour continuer.",
+  "historyOpenWeb": "Voir l’historique complet sur le site",
+  "onboardingMission": "Ensemble, servons la Mouridiyah",
+  "onboardingMissionBody": "Ahloul Khidmah rassemble les compétences et les talents au service de Touba.",
+  "onboardingCommunity": "Une communauté engagée",
+  "onboardingCommunityBody": "Rejoignez une cellule locale ou soutenez les actions de la communauté par un don.",
+  "onboardingServices": "Votre espace membre",
+  "onboardingServicesBody": "Retrouvez votre carte membre, suivez vos cotisations et découvrez Barkelu.",
+  "onboardingStep": "Étape {current} sur {total}",
+  "onboardingStart": "Commencer",
+  "onboardingNext": "Continuer",
+  "onboardingBack": "Retour",
+  "onboardingSkip": "Passer",
+  "galleryOpen": "Explorer les photos",
+  "galleryTitle": "Images du khidma",
+  "galleryPhoto0": "Grande Mosquée de Touba — vue drone",
+  "galleryPhoto1": "Touba — vue aérienne",
+  "galleryPhoto2": "Communauté et service à Touba",
+  "galleryPhoto3": "Scène communautaire Ahloul Khidmah",
+  "galleryPhoto4": "Engagement et khidma",
+  "galleryPhoto5": "Culture mouride",
+  "galleryPhoto6": "Héritage de Cheikh Ahmadou Bamba",
+  "cardFullScreen": "Agrandir la carte",
+  "shopSearch": "Rechercher un produit",
+  "shopNoMatches": "Aucun produit ne correspond à cette recherche.",
+  "@onboardingStep": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  }
+}
